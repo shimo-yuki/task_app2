@@ -69,3 +69,5 @@ gem 'hirb-unicode'
 gem 'pry-rails'
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'dotenv-rails'
+gem 'rails_12factor', group: :production

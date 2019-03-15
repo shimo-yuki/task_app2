@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: task_app_production
-  username: task_app
+  database: heroku_09e851a906ba183
+  username: b817eb9ef22f2d
   password: <%= ENV['TASK_APP_DATABASE_PASSWORD'] %>

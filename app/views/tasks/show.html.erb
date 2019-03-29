@@ -1,18 +1,17 @@
 
 <div class="card bg-light p-5">
   <div class="card-body">
-      <h1>
-        <%= @task.title %>
-      </h1>
-      <%= @task.content %><br>
-      期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
-      担当者：<%= @task.user.name %><br>
-      ステータス：<%= @task.finish_task(@task.status) %><br>
-      <%= link_to '一覧へ戻る', root_path, class:"btn btn-light"  %>
-      <% if @task.user == current_user %>
-        <%= link_to '編集', edit_task_path(@task), class:"btn btn-info" %>
-        <%= link_to 'アサイン', edit_user_path(@task), class:"btn btn-success" %>
-      <% end %>
-    </div>
+    <h1>
+      <%= @task.title %>
+    </h1>
+    <%= @task.content %><br>
+    期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
+    担当者：<%= @task.user.name %><br>
+    ステータス：<%= @task.display_status %><br>
+    <%= link_to '一覧へ戻る', root_path, class: "btn btn-light" %>
+    <% if @task.user == current_user %>
+      <%= link_to '編集', edit_task_path(@task), class: "btn btn-info" %>
+      <%= link_to 'アサイン', edit_user_path(@task), class: "btn btn-success" %>
+    <% end %>
   </div>
 </div>

@@ -9,5 +9,4 @@ class UsersController < ApplicationController
   def edit
       @task = Task.find(params[:id])
   end
-
 end

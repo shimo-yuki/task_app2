@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <%= link_to 'タスク管理アプリ', root_path, class:"navbar-brand"  %>
+    <%= link_to 'タスク管理アプリ', root_path, class:"navbar-brand" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,32 +14,46 @@
             <%= link_to 'タスク一覧', root_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'ユーザ設定',  edit_user_registration_path, class: "nav-link" %>
+            <%= link_to 'ユーザ設定', edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'ログアウト',  destroy_user_session_path , method: :delete, class: "nav-link" %>
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link" %>
           </li>
         </ul>
         <div class="navbar-text navbar-right">
-          <p>ようこそ<%= current_user.name %>さん</p>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              ようこそ<%= current_user.name %>さん
+            </li>
+          </ul>
         </div>
       </div>
     <% else %>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <%= link_to 'マイタスク',  new_user_session_path, class: "nav-link" %>
+            <%= link_to 'マイタスク', new_user_session_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to 'タスク一覧', root_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'ユーザ設定',  edit_user_registration_path, class: "nav-link" %>
+            <%= link_to 'ユーザ設定', edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'サインイン',   new_user_session_path, class: "nav-link" %>
+            <%= link_to 'サインイン', new_user_session_path, class: "nav-link" %>
           </li>
         </ul>
+        <div class="navbar-text navbar-right">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to 'サインイン', new_user_session_path, class: "nav-link" %>
+            </li>
+            <li>
+              <%= link_to 'サインアップ', new_user_registration_path, class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
       </div>
     <% end %>
   </nav>

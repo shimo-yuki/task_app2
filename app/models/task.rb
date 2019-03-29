@@ -1,19 +1,19 @@
 class Task < ApplicationRecord
   belongs_to :user
+  validates :title, :content, :deadline, :status, presence: true
 
-  def finish_task(status)
+  def display_status
     if status == 0
-      return "未対応"
+      "未対応"
     elsif status == 1
-      return "対応中"
+      "対応中"
     else
-      return "完了"
+      "完了"
     end
   end
 
-  def date_task(deadline)
-    if Date.parse(deadline.to_s) <= Date.today
-      return "out"
-    end
+  def expired?
+    deadline > Time.now
   end
+
 end

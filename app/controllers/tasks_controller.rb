@@ -1,52 +1,39 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :edit_task, only: [:edit]
   before_action :authenticate_user!, only: [:new, :edit, :destroy, :update]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :assign]
+  before_action :edit_task, only: [:edit]
 
   def index
-    @tasks = Task.where(status: [0,1])
+    @tasks = Task.visible
   end
-
-  def show; end
 
   def new
     @task = Task.new
   end
 
-  def edit; end
-
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'タスクの作成に成功しました。' }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    @task = current_user.tasks.build(task_params)
+    if @task.save
+      redirect_to @task, notice: 'タスクの作成に成功しました。'
+    else
+      render @task.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'タスクの更新に成功しました。.' }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      redirect_to @task, notice: 'タスクの更新に成功しました。'
+    else
+      render :edit
     end
   end
 
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'タスクの削除に成功しました。' }
-      format.json { head :no_content }
-    end
+    redirect_to root_path, notice: 'タスクの削除に成功しました。'
+  end
+
+  def assign
   end
 
   private
@@ -56,9 +43,7 @@ class TasksController < ApplicationController
   end
 
   def edit_task
-    if @task.user != current_user
-      redirect_to root_path
-    end
+    redirect_to root_path if @task.user != current_user
   end
 
   def task_params

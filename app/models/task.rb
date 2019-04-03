@@ -3,11 +3,12 @@ class Task < ApplicationRecord
   validates :title, :content, :deadline, :status, presence: true
 
   def display_status
-    if status == 0
+    case status
+    when 0
       "未対応"
-    elsif status == 1
+    when 1
       "対応中"
-    else
+    when 2
       "完了"
     end
   end
@@ -15,5 +16,9 @@ class Task < ApplicationRecord
   def expired?
     deadline > Time.now
   end
+
+  scope :visible, -> {
+    where(status: [0, 1])
+  }
 
 end

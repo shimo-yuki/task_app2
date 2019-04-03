@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit]
+  before_action :set_user, only: [:show]
+  before_action :set_tasks, only: [:show]
 
-  def show
+  private
+
+  def set_user
     @user = User.find(params[:id])
-    @tasks = @user.tasks.where(status: [0,1])
   end
 
-  def edit
-      @task = Task.find(params[:id])
+  def set_tasks
+    @tasks = @user.tasks.visible
   end
 end

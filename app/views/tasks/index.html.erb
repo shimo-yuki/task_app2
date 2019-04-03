@@ -11,18 +11,17 @@
         <% end %>
             <%= task.title %>
           </div>
-          <div class="card-body">
-            <p><%= task.content %></p>
-            <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
-            <p>担当者：<%= task.user.name%></p>
-            <p>ステータス：<%= task.display_status %></p>
-            <div>
-              <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
-              <% if task.user == current_user %>
-                <%= link_to "編集", edit_task_path(task), class: "btn btn-info" %>
-                <%= link_to "削除", task_path(task), method: :delete, class: "btn btn-danger" %>
-              <% end %>
-            </div>
+        <div class="card-body">
+          <p><%= task.content %></p>
+          <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
+          <p>担当者：<%= task.user.name%></p>
+          <p>ステータス：<%= task.display_status %></p>
+          <div>
+            <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
+            <% if task.user == current_user %>
+              <%= link_to "編集", edit_task_path(task), class: "btn btn-info" %>
+              <%= link_to "削除", task_path(task), method: :delete, class: "btn btn-danger" %>
+            <% end %>
           </div>
         </div>
       </div>

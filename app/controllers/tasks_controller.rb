@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :edit_task, only: [:edit]
   before_action :authenticate_user!, only: [:new, :edit, :destroy, :update]
 
   def index
@@ -43,15 +44,21 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'タスクの削除に成功しました。' }
+      format.html { redirect_to root_path, notice: 'タスクの削除に成功しました。' }
       format.json { head :no_content }
     end
   end
 
   private
-  
+
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def edit_task
+    if @task.user != current_user
+      redirect_to root_path
+    end
   end
 
   def task_params

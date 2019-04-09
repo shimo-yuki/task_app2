@@ -1,20 +1,30 @@
 class Task < ApplicationRecord
+  has_many :favorites
   belongs_to :user
+
   validates :title, :content, :deadline, :status, presence: true
 
   def display_status
     case status
-    when 0
-      "未対応"
     when 1
-      "対応中"
+      "未対応"
     when 2
+      "対応中"
+    when 3
       "完了"
     end
   end
 
   def expired?
     deadline > Time.now
+  end
+
+  def current_user?(current_user)
+    current_user.id == user_id
+  end
+
+  def favorite_by?(user)
+    Favorite.find_by(user_id: user.id, task_id: id)
   end
 
   scope :visible, -> {

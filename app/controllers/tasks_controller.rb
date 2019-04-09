@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy, :update]
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :assign]
-  before_action :edit_task, only: [:edit]
+  before_action :set_task, only: [:show]
+  before_action :set_mytask, only: [:edit, :update, :destroy, :assign]
 
   def index
     @tasks = Task.visible
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to @task, notice: 'タスクの作成に成功しました。'
     else
-      render @task.errors, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -42,8 +42,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def edit_task
-    redirect_to root_path if @task.user != current_user
+  def set_mytask
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params

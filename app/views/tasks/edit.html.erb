@@ -3,7 +3,7 @@
   <div class="col-lg-12">
     <%= form_with(model: @task, local: true) do |form| %>
       <% if @task.errors.any? %>
-        <div id="error_explanation">
+        <div class="alert-danger", id="error_explanation">
           <h2><%= pluralize(@task.errors.count, "つの") %>エラーにより、このタスクは更新されませんでした。</h2>
           <ul>
             <% @task.errors.full_messages.each do |message| %>

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'tasks#index'
-  resources :tasks
+  resources :tasks do
+    resources :favorites, only: [:create, :destroy]
+  end
+
+  get 'favorites' => "favorites#index"
   get 'tasks/:id/assign' => "tasks#assign", as: 'assign'
   resources :users, only: [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'favorites' => "favorites#index"
   get 'tasks/:id/assign' => "tasks#assign", as: 'assign'
   resources :users, only: [:show]
+  resources :teams do
+    resources :user_teams, only: [:create, :destroy, :update, :index]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

@@ -1,6 +1,10 @@
 class Task < ApplicationRecord
   has_many :favorites
+  has_many :task_users
+  has_many :users, through: :task_users
   belongs_to :user
+  has_many :team_tasks
+  has_many :teams, through: :team_tasks, source: :team
 
   validates :title, :content, :deadline, :status, presence: true
 
@@ -19,8 +23,8 @@ class Task < ApplicationRecord
     deadline > Time.now
   end
 
-  def current_user?(current_user)
-    current_user.id == user_id
+  def current_user?(user)
+    user.id == user_id
   end
 
   def favorite_by?(user)

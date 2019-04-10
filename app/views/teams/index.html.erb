@@ -1,0 +1,46 @@
+<h1>チーム</h1>
+
+  <%= link_to "チームを作成する", new_team_path, class:"btn btn-light" %>
+
+<%# <%チームの検索フォーム %>
+<% if @teams.present? %>
+
+  <h5>入っているチームの一覧</h5>
+  <div class="row">
+    <% @teams.each do |team| %>
+      <div class="col-lg-6">
+        <div class="mr-3 mb-3">
+          <div class="card border-success">
+            <div class="card-body">
+              <%= team.name %>
+              <%= team.teema %>
+              <%= link_to '詳細', team_path(team), class:"btn btn-light" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @myteams.present? %>
+  <h5>  管理者のチーム一覧</h5>
+  <div class="row">
+    <%@myteams.each do |myteam|%>
+      <div class="col-lg-6">
+        <div class="mr-3 mb-3">
+          <div class="card border-success">
+            <div class="card-body">
+              <p>team name : <%= myteam.name %></p>
+              <p>team teema : <%= myteam.teema %></p>
+              <%= link_to '詳細', team_path(myteam), class:"btn btn-light" %>
+              <%= link_to '編集', edit_team_path(myteam), class: "btn btn-info" %>
+              <%= link_to '削除', team_path(myteam), method: :delete,class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

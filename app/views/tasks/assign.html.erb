@@ -4,7 +4,9 @@
     <div class="row">
       <div class="col-lg-6">
         <p>現在アサインされているユーザ</p>
-        <%= @task.user.name %>
+        <%= @task.users.each do |user|
+          <%= user.name %>
+        <% end %>
       </div>
       <div class="col-lg-6">
         <p>新しくアサインするユーザ</p>
@@ -23,7 +25,9 @@
     </h1>
     <%= @task.content %><br>
     期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
-    担当者：<%= @task.user.name %><br>
+    <% @task.users.each do |user| %>
+      担当者：<%= user.name %><br>
+    <% end %>
     ステータス：<%= @task.display_status %><br>
   </div>
 </div>

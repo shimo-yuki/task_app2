@@ -14,7 +14,10 @@
         <div class="card-body">
           <p><%= task.content %></p>
           <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
-          <p>担当者：<%= task.user.name%></p>
+          <p>作成者：<%= task.user.name %></p>
+          <% task.users.each do |user| %>
+            <p>担当者：<%= user.name%></p>
+          <% end %>
           <p>ステータス：<%= task.display_status %></p>
           <div>
             <%= link_to "詳細", task_path(task), class: "btn btn-light" %>

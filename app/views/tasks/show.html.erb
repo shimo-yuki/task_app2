@@ -5,7 +5,10 @@
     </h1>
     <%= @task.content %><br>
     期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
-    担当者：<%= @task.user.name %><br>
+    <p>作成者：<%= @task.user.name %></p>
+    <% @task.users.each do |user| %>
+      <p>担当者：<%= user.name%></p>
+    <% end %>
     ステータス：<%= @task.display_status %><br>
     <%= link_to '一覧へ戻る', root_path, class: "btn btn-light" %>
     <%if @task.current_user?(current_user) %>

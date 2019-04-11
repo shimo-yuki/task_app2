@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :user_teams, only: [:create, :destroy, :update, :index]
   end
+  get 'tasks/team_select' => 'tasks#team_select'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

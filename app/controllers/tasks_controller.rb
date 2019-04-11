@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.assigns.build
   end
 
   def create
@@ -36,6 +37,10 @@ class TasksController < ApplicationController
   def assign
   end
 
+  def team_select
+    @user = Team.find(params[:team_id]).users
+    @user.unshift(["選択して下さい",""])
+  end
   private
 
   def set_task
@@ -47,6 +52,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :user_id, :status)
+    params.require(:task).permit(:title, :content, :deadline, :user_id, :status, :users_attributes => [:id, :user_id, :_destroy])
   end
 end

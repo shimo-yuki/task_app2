@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  string: 
-  string: 
+  user_id: MyString
+  task_id: MyString
 
 two:
-  string: 
-  string: 
+  user_id: MyString
+  task_id: MyString

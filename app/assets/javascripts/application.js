@@ -16,4 +16,43 @@
 //= require_tree .
 //= require jquery3
 //= require popper
+//= require jquery
+//= require cocoon
 //= require bootstrap-sprockets
+$(function() {
+  $('[name="radio"]:radio').change( function() {
+    if($('[id=1]').prop('checked')){
+      $('.teams').fadeOut();
+      $('.users').fadeIn();
+    } else if ($('[id=2]').prop('checked')) {
+      $('.users').fadeOut();
+      $('.teams').fadeIn();
+    }
+  });
+});
+
+$(function($) {
+   $('#team_name').change(function(){
+   var team_id = $("#team_name").val();
+   $.get("new.js?team_id=" + team_id);
+    });
+});
+
+// $(document).ready(function () {
+//   $('.team_name').change(function(){
+//     var team_id = $('#form [name=team_name]').val();
+//     $.ajax({
+//             url: "new",
+//             type: "GET",
+//             data: team_id,
+//             dataType: "html",
+//             success: function(data) {
+//               console.log(team_id);
+//             },
+//             error: function(data) {
+//                 alert(data);
+//             }
+//         });
+//
+//   });
+// });

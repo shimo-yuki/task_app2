@@ -1,10 +1,9 @@
 class Task < ApplicationRecord
   has_many :favorites
-  has_many :task_users
-  has_many :users, through: :task_users
   belongs_to :user
-  has_many :team_tasks
-  has_many :teams, through: :team_tasks, source: :team
+  has_many :assigns
+  has_many :users, through: :assigns, source: :user
+  has_many :comments
 
   validates :title, :content, :deadline, :status, presence: true
 

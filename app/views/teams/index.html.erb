@@ -2,7 +2,20 @@
 
   <%= link_to "チームを作成する", new_team_path, class:"btn btn-light" %>
 
-<%# <%チームの検索フォーム %>
+<%= search_form_for(@q, url:teams_path) do |f| %>
+  <%= f.label :name, 'チーム名' %>
+  <%= f.search_field :name %>
+  <%= f.submit %>
+<% end %>
+
+<% if @team.present? %>
+
+  <% @team.each do |team| %>
+    <%= team.name %>
+    <%= link_to '詳細', team_path(team) %>
+  <% end %>
+<% end %>
+
 <% if @teams.present? %>
 
   <h5>入っているチームの一覧</h5>

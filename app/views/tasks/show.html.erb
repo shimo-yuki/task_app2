@@ -6,9 +6,14 @@
     <%= @task.content %><br>
     期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
     <p>作成者：<%= @task.user.name %></p>
-    <% @task.users.each do |user| %>
-      <p>担当者：<%= user.name%></p>
+    <% if @team == nil %>
+      <% @task.users.each do |user| %>
+        <p>担当者：<%= user.name%></p>
+      <% end %>
+    <% else %>
+      <P>担当チーム：<%= @team.name %></P>
     <% end %>
+
     ステータス：<%= @task.display_status %><br>
     <%= link_to '一覧へ戻る', root_path, class: "btn btn-light" %>
     <%if @task.current_user?(current_user) %>
@@ -21,5 +26,42 @@
         <%= link_to '保存する', task_favorites_path(@task),method: :post, class: "btn btn-success" %>
       <% end %>
     <% end %>
+  </div>
+</div>
+
+<div>
+  <div class="col-lg-10 offset-md-1 mb-5 mt-5 border-secondary">
+    <p><i class="fas fa-comment"></i>comment</p>
+    <% @comments.each do |comment| %>
+      <div class="box clearfix col-lg-10 offset-md-1">
+        <% if comment.user == current_user %>
+          <div class="mycomment">
+            <div class="my-say">
+              <p><%= comment.content %></p>
+              <div class="link">
+                <%= link_to '編集', edit_comment_path(comment), class:"btn-light" %>
+                <%= link_to '削除', comment_path(comment), method: :delete, class:"btn-light" %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="comment-name">
+            <p><%= comment.user.name %></p>
+          </div>
+          <div class="chatting">
+            <div class="comment-top">
+              <p><%= comment.content %></p>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="comment-new">
+      <%= form_for @comment do |f| %>
+        <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
+        <%= f.hidden_field :task_id, value: @task.id %>
+        <%= f.submit 'コメント',  class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
+      <% end %>
+    </div>
   </div>
 </div>

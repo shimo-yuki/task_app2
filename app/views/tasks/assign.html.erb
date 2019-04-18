@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-lg-6">
         <p>現在アサインされているユーザ</p>
-        <%= @task.users.each do |user|
+        <%= @task.users.each do |user| %>
           <%= user.name %>
         <% end %>
       </div>

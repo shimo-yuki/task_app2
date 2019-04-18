@@ -2,8 +2,8 @@
 
 one:
   string: 
-  string: 
+  comtemt: MyString
 
 two:
   string: 
-  string: 
+  comtemt: MyString

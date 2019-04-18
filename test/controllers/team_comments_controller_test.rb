@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TeamTaskTest < ActiveSupport::TestCase
+class TeamCommentsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

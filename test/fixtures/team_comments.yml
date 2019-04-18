@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  team_id: MyString
-  task_id: MyString
+  string: 
+  string: 
+  string: 
 
 two:
-  team_id: MyString
-  task_id: MyString
+  string: 
+  string: 
+  string: 

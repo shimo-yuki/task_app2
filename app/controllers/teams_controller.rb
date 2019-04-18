@@ -1,18 +1,18 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: [:show, :destroy]
+  before_action :set_team, only: [:show, :destroy, :edit]
 
   def index
     @teams = current_user.teams
     @myteams = current_user.myteams
-    if params[:q] == nil
-      @q = Team.ransack(params[:q])
+    if params[:search].present?
+      @team = Team.search(params[:search])
     else
-      @q = Team.search(search_params)
-      @team = @q.result(distinct: true)
+      @team = 0;
     end
-
   end
+
+  def edit; end
 
   def new
     @team = Team.new
@@ -52,7 +52,4 @@ class TeamsController < ApplicationController
       @team = Team.find(params[:id])
   end
 
-  def search_params
-    params.require(:q).permit(:name)
-  end
 end

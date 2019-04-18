@@ -7,4 +7,9 @@ class Team < ApplicationRecord
   def teamed?(user)
     UserTeam.find_by(user_id: user.id, team_id: id).present?
   end
+
+  def self.search(search)
+      return Team.all unless search
+      Team.where(['name LIKE ?', "%#{search}%"])
+  end
 end

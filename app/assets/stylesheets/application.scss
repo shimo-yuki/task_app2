@@ -14,6 +14,9 @@
  */
  @import "bootstrap";
 
+body{
+  background-color: #F6F6F6;
+}
 
  .clearfix::after{
     content: "";
@@ -32,8 +35,13 @@
 .comment-form{
   height: 100%;
 }
+
 .chatting{
   display: inline-block;
+}
+
+.comment-notice{
+  display: none;
 }
 .comment-top {
   position: relative;
@@ -44,7 +52,7 @@
   max-width: 100%;
   color: #555;
   font-size: 16px;
-  background: #FFF;
+  background: #F6F6F6;
   border: solid 3px #555;
   box-sizing: border-box;
   border-radius: 10px;
@@ -57,7 +65,7 @@
   left: -22px;
   margin-top: -12px;
   border: 11px solid transparent;
-  border-right: 11px solid #FFF;
+  border-right: 11px solid #F6F6F6;
   z-index: 2;
 }
 
@@ -91,7 +99,7 @@
    height: 100px;
    color: #555;
    font-size: 16px;
-   background: #FFF;
+   background: #F6F6F6;
    border: solid 3px #555;
    box-sizing: border-box;
    border-radius: 10px;
@@ -104,7 +112,7 @@
   right: -24px;
   margin-top: -12px;
   border: 12px solid transparent;
-  border-left: 12px solid #FFF;
+  border-left: 12px solid #F6F6F6;
   z-index: 2;
 }
 
@@ -125,8 +133,9 @@
 }
 
 .border-secondary{
-  border: 2px solid #000;
+  border: 1px solid #000;
   height:100%;
+  background-color: #ffffff;
 }
 
 

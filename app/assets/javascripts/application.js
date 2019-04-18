@@ -68,14 +68,18 @@ $(function($) {
         },
         success : function(data){
           $('#comment').val("");
-          if(user_id == data.user_id){
-            $('.box:last').append('<div class="mycomment"><div class="my-say"><p>' + data.comment +'</div></div>')
-            console.log(data.comment_id)
-            $('.mycomment:last').append('<div class="my-say"><div class="link"><a class="btn-light" href="/team_comments/'+ data.comment_id +'/edit">編集</a></div></div>');
-            $('.link:last').append('<a class="btn-light" href="/team_comments/'+ data.comment_id +'">削除</a>');
-          } else{
-            $('.box:last').append('<div>' + data.user_id + '</div>');
-            $('.box:last').append('<div>' + data.comment + '</div>');
+          if(data.comment_id != null){
+            $('.comment-notice').fadeOut();
+            if(user_id == data.user_id){
+              $('.box:last').append('<div class="mycomment"><div class="my-say"><p>' + data.comment +'</div></div>')
+              $('.mycomment:last').append('<div class="my-say"><div class="link"><a class="btn-light" href="/team_comments/'+ data.comment_id +'/edit">編集</a></div></div>');
+              $('.link:last').append('<a class="btn-light" href="/team_comments/'+ data.comment_id +'">削除</a>');
+            } else{
+              $('.box:last').append('<div>' + data.user_id + '</div>');
+              $('.box:last').append('<div>' + data.comment + '</div>');
+            }
+          }else{
+            $('.comment-notice').fadeIn();
           }
         }
         // console.log(data.responseJSON);

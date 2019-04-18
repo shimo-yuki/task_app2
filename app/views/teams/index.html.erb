@@ -2,13 +2,12 @@
 
   <%= link_to "チームを作成する", new_team_path, class:"btn btn-light" %>
 
-<%= search_form_for(@q, url:teams_path) do |f| %>
-  <%= f.label :name, 'チーム名' %>
-  <%= f.search_field :name %>
-  <%= f.submit %>
-<% end %>
+  <%= form_tag(teams_path,:method => 'get') do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag 'Search', :name => nil %>
+  <% end %>
 
-<% if @team.present? %>
+<% if @team != 0 %>
 
   <% @team.each do |team| %>
     <%= team.name %>

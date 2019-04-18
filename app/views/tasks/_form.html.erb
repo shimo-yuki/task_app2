@@ -28,7 +28,7 @@
 
       <div class="form_group">
         <div class="status">
-          <%= form.radio_button :assign, "1", class: "status", id:'1', name:"radio" %>
+          <%= form.radio_button :assign, "1", class: "status", id:'1', name:"radio", checked:"checked" %>
         </div>
 
         <div class="status">
@@ -46,15 +46,12 @@
         <div class="users">
           <%= form.collection_select :user_id, User.all, :id, :name, {}, :class => 'col-lg-12' %>
         </div>
-        <div class="teams">
-          <%= form.collection_select :team_id, Team.all, :id, :name, {}, :class => 'col-lg-12', :id => 'team_name', name:'team_name' %>
-          <%= form.fields_for :assigns do |assign|%>
-            <div>
-              <%= render "assign_fields", f: assign %>
-            </div>
-          <% end %>
-          <div><%= link_to_add_association "userを追加", {:form => assigns}, class:"btn btn-default add_users" %></div>
 
+        <div class="teams">
+          <%= form.collection_select :team_id, Team.all, :id, :name, {}, :class => 'col-lg-12', :id => 'team_id', name:'team_id' %>
+            <select id="hoge" multiple name="task[user_ids][]">
+              <option value="">選択してください</option>
+            </select>
         </div>
       </div>
 

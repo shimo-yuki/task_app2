@@ -12,7 +12,6 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    binding.pry
     favorite = Favorite.find(params[:id])
     favorite.destroy
     redirect_to task_path(params[:task_id])

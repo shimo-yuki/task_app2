@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :assigns
   has_many :users, through: :assigns, source: :user
-  accepts_nested_attributes_for :assigns, allow_destroy: true
+  has_many :comments
 
   validates :title, :content, :deadline, :status, presence: true
 

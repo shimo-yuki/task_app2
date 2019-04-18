@@ -1,0 +1,2 @@
+module TeamCommentsHelper
+end

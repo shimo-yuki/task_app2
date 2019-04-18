@@ -21,11 +21,15 @@ class TeamsController < ApplicationController
   def create
     @team = current_user.myteams.build(team_params)
     @team.save
+    user_team = UserTeam.create(user_id: current_user.id, team_id: @team.id)
+    user_team.save
     redirect_to team_path(@team)
   end
 
   def show
-    @tasks = @team.tasks
+    @tasks = Task.where(team_id: @team.id)
+    @comment = TeamComment.new
+    @comments = TeamComment.where(team_id: @team.id)
     if params[:search].present?
       @users = User.search(params[:search])
     else

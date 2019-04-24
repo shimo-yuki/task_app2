@@ -1,15 +1,18 @@
-<div class="card bg-light p-5">
+<div class="card bg-light col-lg-10 offset-md-1 mb-5 mt-5">
   <div class="card-body">
-    <h1>
+    <h2>
       <%= @task.title %>
-    </h1>
+    </h2>
     <%= @task.content %><br>
     期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
-    <p>作成者：<%= @task.user.name %></p>
+    作成者：<%= @task.user.name %><br>
     <% if @team == nil %>
-      <% @task.users.each do |user| %>
-        <p>担当者：<%= user.name%></p>
-      <% end %>
+      <% unless @task.users.empty? %>
+        担当者：
+        <% @task.users.each do |user| %>
+          <%= user.name%>／
+        <% end %>
+      <% end %><br>
     <% else %>
       <P>担当チーム：<%= @team.name %></P>
     <% end %>
@@ -39,8 +42,8 @@
             <div class="my-say">
               <p><%= comment.content %></p>
               <div class="link">
-                <%= link_to '編集', edit_comment_path(comment), class:"btn-light" %>
-                <%= link_to '削除', comment_path(comment), method: :delete, class:"btn-light" %>
+                <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
+                <%= link_to '削除', comment_path(comment), method: :delete, class:"btn-light delete-comment" %>
               </div>
             </div>
           </div>

@@ -38,7 +38,7 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    @tema.destroy
+    @team.destroy
     redirect_to teams_path
   end
 

@@ -1,11 +1,11 @@
-<h1>マイタスク</h1>
+<h1>My Task</h1>
 <% if @user == current_user %>
-  <%= link_to "New Task", new_task_path, class:"btn btn-light" %>
+  <%= link_to "New Task", new_task_path, class:"btn btn-light col-lg-12 mb-3" %>
 <% end %>
 <div class="row">
   <% @tasks.each do |task| %>
     <div class="col-lg-6">
-      <div class="mr-3 mb-3">
+      <div class="mb-3">
         <% if task.expired? %>
           <div class="card border-danger">
             <div class="card-header bg-danger">
@@ -19,8 +19,12 @@
             <p><%= task.content %></p>
             <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
             <p>作成者：<%= task.user.name %></p>
-            <% task.users.each do |user| %>
-              <p>担当者：<%= user.name%></p>
+            <% unless task.users.empty? %>
+              <p>  担当者：
+                <% task.users.each do |user| %>
+                  <%= user.name%>／
+                <% end %>
+              </p>
             <% end %>
             <p>ステータス：<%= task.display_status %></p>
             <div>

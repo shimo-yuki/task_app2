@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'tasks#index'
   get 'tasks/team_select' => 'tasks#team_select'
+  get 'tasks/add_user' => 'tasks#add_user'
   resources :tasks do
     resources :favorites, only: [:create, :destroy]
   end

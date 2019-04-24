@@ -15,7 +15,9 @@
  @import "bootstrap";
 
 body{
-  background-color: #F6F6F6;
+  background-color: #E1E3E4;
+  color: #5D5D5E;
+  font-family: 'Hannotate TC','HanziPen SC','Osaka','TsukuARdGothic-Regular','klee',sans-serif;
 }
 
  .clearfix::after{
@@ -144,4 +146,86 @@ body{
   bottom: 10px;
   right: 15px;
   font-size: 15px;
+}
+
+.card .bg-success{
+  background-color: #fbfbfb!important;
+  border-bottom: none;
+  border-left: 6px solid  #4DADA1;
+}
+
+.card .bg-danger{
+  background-color: #fbfbfb !important;
+  border-bottom: none;
+    border-left: 6px solid #DF907C;
+}
+
+.border-success, .border-danger{
+  border-color: #dcdcdc !important;
+  border: 1px solid #dcdcdc !important;
+}
+
+.card{
+  border-radius: 0;
+}
+
+.card-header:first-child {
+    border-radius: 0;
+}
+
+
+.btn-light{
+  background-color: #ECD070;
+  border-color: #ECD070;
+}
+
+.btn-light:hover, .btn-light:active{
+  background-color:#ecb170;
+  border-color: #ecb170;
+}
+.btn-info{
+  background-color: #4DADA1;
+  border-color: #4DADA1;
+}
+
+.btn-info:hover, .btn-info:active{
+  background-color: #3d8a80;
+  border-color: #3d8a80;
+}
+
+.btn-danger{
+  background-color: #DF907C;
+  border-color:  #DF907C;
+}
+
+.btn-danger:hover, .btn-danger:active{
+  background-color: #df7c81;
+  border-color:  #df7c81;
+}
+
+.btn-success{
+  background-color: #83BAD6;
+  border-color:  #83BAD6;
+}
+
+.btn-success:hover, .btn-success:not(:disabled):not(.disabled):active{
+  background-color: #83a5d6;
+  border-color:  #83a5d6;
+}
+.btn-success:focus, .btn:focus{
+  box-shadow: none;
+}
+.search-button{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  border: none;
+  border-left: none;
+}
+
+h1{
+  font-family: 'Bradley Hand','Apple Chancery','Chalkboard','Chalkduster','Comic Sans MS','DIN Condensed','Noteworthy','Papyrus-Condensed','Silom','Zapfino',sans-serif;
+}
+
+.edit-comment, .delete-comment{
+  background-color: #fff
 }

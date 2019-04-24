@@ -1,7 +1,7 @@
-<h1>保存したタスク一覧</h1>
+<h1>Storage Task</h1>
   <div class="row">
     <% @favorites.each do |favorite| %>
-      <div class="col-lg-6 pr-3 pb-3">
+      <div class="col-lg-6 pb-3">
         <% if favorite.task.expired? %>
         <div class="card border-danger">
           <div class="card-header bg-danger">
@@ -15,8 +15,12 @@
           <p><%= favorite.task.content %></p>
           <p>期限：<%= favorite.task.deadline.strftime("%Y年%m月%d日") %></p>
           <p>作成者：<%= favorite.task.user.name %></p>
-          <% favorite.task.users.each do |user| %>
-            <p>担当者：<%= user.name%></p>
+          <% unless favorite.task.users.empty? %>
+            <p>担当者：
+              <% favorite.task.users.each do |user| %>
+                <%= user.name%>／
+              <% end %>
+            </p>
           <% end %>
           <p>ステータス：<%= favorite.task.display_status %></p>
           <div>

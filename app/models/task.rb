@@ -1,9 +1,9 @@
 class Task < ApplicationRecord
-  has_many :favorites
+  has_many :favorites, :dependent => :destroy
   belongs_to :user
   has_many :assigns
   has_many :users, through: :assigns, source: :user
-  has_many :comments
+  has_many :comments, :dependent => :destroy
 
   validates :title, :content, :deadline, :status, presence: true
 

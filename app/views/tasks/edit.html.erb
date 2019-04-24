@@ -1,4 +1,4 @@
-<h1>タスク編集</h1>
+<h1>Edit Task</h1>
 <div class="row">
   <div class="col-lg-12">
     <%= form_with(model: @task, local: true) do |form| %>
@@ -25,6 +25,40 @@
           <%= form.text_field :content, class: "col-lg-12 form-control"  %>
         </div>
       </div>
+      <div class="form_group">
+        <div class="status">
+          <%= form.radio_button :assign, "1", class: "status", id:'1', name:"radio", checked:"checked" %>
+        </div>
+
+        <div class="status">
+          個人
+        </div>
+
+        <div class="status">
+          <%= form.radio_button :assign, "2", class:"status", id:'2', name:"radio" %>
+        </div>
+
+        <div class="status">
+          チーム
+        </div>
+
+        <div id="user-select-box">
+          <div class="input-group mb-2">
+            <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name), :class => 'form-control user_form', :id => 'task_user_id_1' %>
+            <span class="input-group-btn">
+              <button type="button" id="user_additional_button">ユーザを追加します。</button>
+            </span>
+          </div>
+        </div>
+
+        <div class="teams">
+          <%= form.collection_select :team_id, Team.all, :id, :name, {}, :class => 'col-lg-12', :id => 'team_id', name:'team_id' %>
+            <select id="hoge" multiple name="task[user_ids][]">
+              <option value="">選択してください</option>
+            </select>
+        </div>
+      </div>
+
 
       <div class="form_group">
         <div class="field">

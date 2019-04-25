@@ -1,6 +1,9 @@
-<h1>My Task</h1>
+
 <% if @user == current_user %>
+  <h1>My Task</h1>
   <%= link_to "New Task", new_task_path, class:"btn btn-light col-lg-12 mb-3" %>
+<% else %>
+  <h1> <%= @user.name %> Task </h1>
 <% end %>
 <div class="row">
   <% @tasks.each do |task| %>
@@ -18,11 +21,11 @@
           <div class="card-body">
             <p><%= task.content %></p>
             <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
-            <p>作成者：<%= task.user.name %></p>
+            <p>作成者：<%= link_to task.user.name, user_path(task.user), class:"no-link"%></p>
             <% unless task.users.empty? %>
               <p>  担当者：
                 <% task.users.each do |user| %>
-                  <%= user.name%>／
+                  <%= link_to user.name, user_path(user), class:"no-link"%>／
                 <% end %>
               </p>
             <% end %>
@@ -31,7 +34,8 @@
               <%= link_to "詳細", task_path(task), class:"btn btn-light" %>
               <% if task.user == current_user %>
                 <%= link_to "編集", edit_task_path(task), class:"btn btn-info" %>
-                <%= link_to "削除", task_path(task), method: :delete, class:"btn btn-danger" %>
+                <%= link_to "削除", task_path(task), data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                commit: '削除する'}, title: '削除確認', class:"btn btn-danger" %>
               <% end %>
             </div>
           </div>

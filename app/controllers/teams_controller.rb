@@ -1,9 +1,9 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: [:show, :destroy, :edit]
+  before_action :set_team, only: [:show, :destroy, :edit, :update]
 
   def index
-    @teams = current_user.teams
+    @teams = current_user.teams.where.not(user_id: current_user.id)
     @myteams = current_user.myteams
     if params[:search].present?
       @team = Team.search(params[:search])
@@ -20,10 +20,13 @@ class TeamsController < ApplicationController
 
   def create
     @team = current_user.myteams.build(team_params)
-    @team.save
-    user_team = UserTeam.create(user_id: current_user.id, team_id: @team.id)
-    user_team.save
-    redirect_to team_path(@team)
+    if @team.save
+      user_team = UserTeam.create(user_id: current_user.id, team_id: @team.id)
+      user_team.save
+      redirect_to team_path(@team), notice: 'チームを作成しました'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -37,9 +40,20 @@ class TeamsController < ApplicationController
     end
   end
 
+  def update
+    if @team.update(team_params)
+      redirect_to team_path(@team), notice: 'チームを編集しました'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    @team.destroy
-    redirect_to teams_path
+    if @team.destroy
+      redirect_to teams_path, notice: 'チームを削除しました'
+    else
+      render :index, status: :unprocessable_entity
+    end
   end
 
   private

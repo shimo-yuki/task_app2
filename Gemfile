@@ -73,3 +73,7 @@ gem 'dotenv-rails'
 gem 'rails_12factor', group: :production
 gem 'ransack'
 gem 'cocoon'
+gem 'data-confirm-modal'
+gem "font-awesome-rails"
+gem 'momentjs-rails'
+gem 'bootstrap4-datetime-picker-rails'

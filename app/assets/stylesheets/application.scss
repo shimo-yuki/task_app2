@@ -13,6 +13,8 @@
 
  */
  @import "bootstrap";
+ @import "font-awesome";
+ @import "tempusdominus-bootstrap-4.css";
 
 body{
   background-color: #E1E3E4;
@@ -228,4 +230,19 @@ h1{
 
 .edit-comment, .delete-comment{
   background-color: #fff
+}
+
+.no-link, .no-link:hover{
+  color: #000;
+}
+
+.layout-form{
+  -webkit-appearance:none;
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+}
+
+.layout-btn{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
 }

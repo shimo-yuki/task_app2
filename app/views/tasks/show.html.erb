@@ -5,16 +5,16 @@
     </h2>
     <%= @task.content %><br>
     期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
-    作成者：<%= @task.user.name %><br>
+    作成者：<%= link_to @task.user.name, user_path(@task.user), class:"no-link" %><br>
     <% if @team == nil %>
       <% unless @task.users.empty? %>
         担当者：
         <% @task.users.each do |user| %>
-          <%= user.name%>／
+          <%= link_to user.name, user_path(user), class:"no-link"%>／
         <% end %>
       <% end %><br>
     <% else %>
-      <P>担当チーム：<%= @team.name %></P>
+      <P>担当チーム：<%= link_to @team.name, team_path(@team), class:"no-link" %></P>
     <% end %>
 
     ステータス：<%= @task.display_status %><br>
@@ -24,7 +24,8 @@
       <%= link_to 'アサイン', assign_path(@task), class: "btn btn-success" %>
     <% else %>
       <% if @task.favorite_by?(current_user) %>
-        <%= link_to '保存解除',task_favorite_path(@task, @task.favorite_by?(current_user).id), method: :delete, class: "btn btn-success" %>
+        <%= link_to '保存解除',task_favorite_path(@task, @task.favorite_by?(current_user).id), method: :delete, data: { confirm: '本当に解除しますか?',cancel: 'やめる',
+        commit: '解除する'}, title: '保存解除確認', class: "btn btn-success" %>
       <% else %>
         <%= link_to '保存する', task_favorites_path(@task),method: :post, class: "btn btn-success" %>
       <% end %>
@@ -43,7 +44,8 @@
               <p><%= comment.content %></p>
               <div class="link">
                 <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
-                <%= link_to '削除', comment_path(comment), method: :delete, class:"btn-light delete-comment" %>
+                <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                commit: '削除する'}, class:"btn-light delete-comment" %>
               </div>
             </div>
           </div>

@@ -15,14 +15,17 @@
 
       <% if @team != 0 %>
         <div class="row">
+          <div class="col-lg-12 pr-0">
+            <h4>検索結果</h4>
+          </div>
           <% @team.each do |team| %>
             <div class="col-lg-12 pr-0">
-              <div class=" mb-3">
+              <div class=" mb-3 mr-3">
                 <div class="card border-primar">
                   <div class="card-body">
                     <p>name : <%= team.name %></p>
                     <p>teema : <%= team.teema %></p>
-                    <%= link_to '詳細', team_path(team) %>
+                    <%= link_to '詳細', team_path(team), class:"btn btn-light" %>
                   </div>
                 </div>
               </div>
@@ -43,7 +46,8 @@
                   <p>teema : <%= myteam.teema %></p>
                   <%= link_to '詳細', team_path(myteam), class:"btn btn-light" %>
                   <%= link_to '編集', edit_team_path(myteam), class: "btn btn-info" %>
-                  <%= link_to '削除', team_path(myteam), method: :delete,class: "btn btn-danger" %>
+                  <%= link_to '削除', team_path(myteam), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                  commit: '削除する'}, title: '削除確認', class: "btn btn-danger" %>
                 </div>
               </div>
             </div>

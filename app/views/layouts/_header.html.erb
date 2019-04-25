@@ -27,7 +27,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <%= link_to 'ユーザ設定',edit_user_registration_path, class:"dropdown-item nav-link", style:"color: #000000;"%>
-                  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class:"dropdown-item nav-link", style:" color: #000000;"%>
+                  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class:"dropdown-item nav-link", data: { confirm: '本当にログアウトしますか?',cancel: 'やめる',
+                  commit: 'ログアウトする'}, title: 'ログアウトの確認', style:" color: #000000;"%>
                 </div>
               </li>
             </ul>

@@ -4,7 +4,7 @@
     <%= form_with(model: @task, local: true) do |form| %>
       <% if @task.errors.any? %>
         <div class="alert-danger", id="error_explanation">
-          <h2><%= pluralize(@task.errors.count, "つの") %>エラーにより、このタスクは更新されませんでした。</h2>
+          <h2><%= pluralize(@task.errors.count, "つの") %>エラーにより、このタスクは更新されませんでした</h2>
           <ul>
             <% @task.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -25,9 +25,14 @@
           <%= form.text_field :content, class: "col-lg-12 form-control"  %>
         </div>
       </div>
+
       <div class="form_group">
         <div class="status">
-          <%= form.radio_button :assign, "1", class: "status", id:'1', name:"radio", checked:"checked" %>
+          <% if @task.assign == 1 %>
+            <%= form.radio_button :assign, "1", class: "status", id:'1', name:"radio", checked:"checked" %>
+          <% elsif @task.assign == 2 %>
+            <%= form.radio_button :assign, "1", class: "status", id:'1', name:"radio" %>
+          <% end %>
         </div>
 
         <div class="status">
@@ -35,37 +40,43 @@
         </div>
 
         <div class="status">
-          <%= form.radio_button :assign, "2", class:"status", id:'2', name:"radio" %>
+          <% if @task.assign == 1 %>
+            <%= form.radio_button :assign, "2", class:"status", id:'2', name:"radio" %>
+          <% elsif @task.assign == 2 %>
+          <%= form.radio_button :assign, "2", class:"status", id:'2', name:"radio", checked:"checked" %>
+          <% end %>
         </div>
 
         <div class="status">
           チーム
         </div>
+        <% if @task.assign == 1 %>
+          <div id="user-select-box">
+            <div class="input-group user-select-box-sub mb-2">
+              <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name), :class => 'form-control user_form layout-form', :id => 'task_user_id_1' %>
+              <span class="input-group-btn">
+                <button type="button" id="user_additional_button" class="btn btn-info layout-btn">ユーザ追加</button>
+              </span>
+            </div>
+          </div>
+        <% elsif @task.assign == 2 %>
+          <div id="teams">
+            <%= form.collection_select :team_id, Team.all, :id, :name, {prompt: "選択してください"}, :class => 'col-lg-12 team_id form-control mb-1', :id => 'team_id' %>
+            <div id="team_user-select-box">
+              <div class="input-group team_user-select-box-sub mb-2">
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+        <%= form.label :deadline %><br>
+        <div class="input-group form_group" data-target-input="nearest">
 
-        <div id="user-select-box">
-          <div class="input-group mb-2">
-            <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name), :class => 'form-control user_form', :id => 'task_user_id_1' %>
-            <span class="input-group-btn">
-              <button type="button" id="user_additional_button">ユーザを追加します。</button>
-            </span>
+          <%= form.text_field :deadline, id: "deadline", value: @task.deadline, class:  "form-control datepicker", data: { target: '#deadline'} %>
+          <div class="input-group-append" data-target="#deadline" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
           </div>
         </div>
-
-        <div class="teams">
-          <%= form.collection_select :team_id, Team.all, :id, :name, {}, :class => 'col-lg-12', :id => 'team_id', name:'team_id' %>
-            <select id="hoge" multiple name="task[user_ids][]">
-              <option value="">選択してください</option>
-            </select>
-        </div>
-      </div>
-
-
-      <div class="form_group">
-        <div class="field">
-          <%= form.label :deadline %><br>
-          <%= form.datetime_select :deadline, :default => Date.today %>
-        </div>
-      </div>
 
       <div class="form_group">
         <div class="field">

@@ -20,13 +20,15 @@ class TasksController < ApplicationController
   end
 
   def create
-    binding.pry
     @task = current_user.tasks.build(task_params)
-    if params[:assign] == "2"
-      @task.team_id = params[:team_id]
+    if params[:task][:assign] == "2"
+      @task.team_id = params[:task][:team_id]
+    else
+      @task.team_id = nil
     end
+    binding.pry
     if @task.save
-      redirect_to @task, notice: 'タスクの作成に成功しました。'
+      redirect_to @task, notice: 'タスクを作成しました'
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,8 +36,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      binding.pry
-      redirect_to @task, notice: 'タスクの更新に成功しました。'
+      redirect_to @task, notice: 'タスクを更新しました'
     else
       render :edit
     end
@@ -43,7 +44,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_path, notice: 'タスクの削除に成功しました。'
+    redirect_to root_path, notice: 'タスクを削除しました'
   end
 
   def assign
@@ -72,6 +73,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :assign, :user_id, {:user_ids => []}, :status, :team_id)
+    params.require(:task).permit(:title, :content, :deadline, :assign, :user_id,{ user_ids: []}, :status, :team_id)
   end
 end

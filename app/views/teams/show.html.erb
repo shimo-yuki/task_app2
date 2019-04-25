@@ -28,7 +28,7 @@
                 <% end %>
               </ul>
             <% else %>
-              そのユーザーはいないです。
+              そのユーザーはいないです
             <% end %>
           <% end %>
         <% end %>
@@ -44,7 +44,7 @@
             <div>
               メンバー：
               <% @team.users.each do |team_user| %>
-                <%= team_user.name %>／
+                <%= link_to team_user.name, user_path(team_user), class:"no-link" %>／
               <% end %>
             </div>
           </div>
@@ -64,13 +64,14 @@
               <div class="card-body">
                 <p><%= task.content %></p>
                 <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
-                <p>担当者：<%= task.user.name%></p>
+                <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link"%>></p>
                 <p>ステータス：<%= task.display_status %></p>
                 <div>
                   <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
                   <% if task.user == current_user %>
                     <%= link_to "編集", edit_task_path(task), class: "btn btn-info" %>
-                    <%= link_to "削除", task_path(task), method: :delete, class: "btn btn-danger" %>
+                    <%= link_to "削除", task_path(task), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                    commit: '削除する'}, title: '削除確認', class: "btn btn-danger" %>
                   <% end %>
                 </div>
               </div>
@@ -99,7 +100,7 @@
                     <p><%= comment.comment %></p>
                     <div class="link">
                       <%= link_to '編集', edit_team_comment_path(comment), class:"btn-light edit-comment" %>
-                      <%= link_to '削除', team_comment_path(comment), data: {comment_id: comment.id}, method: :delete, class:"btn-light delete-comment" %>
+                      <%= link_to '削除', team_comment_path(comment), data: {comment_id: comment.id}, method: :delete,data: {confirm: "本当に削除しますか？"}, class:"btn-light delete-comment" %>
                     </div>
                   </div>
                 </div>

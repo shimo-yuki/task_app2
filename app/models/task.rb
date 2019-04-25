@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   has_many :users, through: :assigns, source: :user
   has_many :comments, :dependent => :destroy
 
-  validates :title, :content, :deadline, :status, presence: true
+  validates :title, :content, :deadline, :status, :assign, presence: true
 
   def display_status
     case status

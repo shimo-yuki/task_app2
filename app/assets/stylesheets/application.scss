@@ -245,4 +245,16 @@ h1{
 .layout-btn{
   border-top-left-radius:0;
   border-bottom-left-radius:0;
+  border-radius: 50%;
+}
+
+.edit{
+  display: none;
+}
+.edit-form{
+  pointer-events : none;
+}
+
+.user-select-box-sub:last-child .edit-form, .team_user-select-box-sub:last-child .edit-form{
+  pointer-events: auto;
 }

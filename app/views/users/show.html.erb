@@ -35,7 +35,7 @@
               <% if task.user == current_user %>
                 <%= link_to "編集", edit_task_path(task), class:"btn btn-info" %>
                 <%= link_to "削除", task_path(task), data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-                commit: '削除する'}, title: '削除確認', class:"btn btn-danger" %>
+                commit: '削除する'}, title: '削除確認', method: :delete, class:"btn btn-danger" %>
               <% end %>
             </div>
           </div>

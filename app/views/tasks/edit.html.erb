@@ -52,19 +52,49 @@
         </div>
         <% if @task.assign == 1 %>
           <div id="user-select-box">
-            <div class="input-group user-select-box-sub mb-2">
-              <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name), :class => 'form-control user_form layout-form', :id => 'task_user_id_1' %>
-              <span class="input-group-btn">
-                <button type="button" id="user_additional_button" class="btn btn-info layout-btn">ユーザ追加</button>
-              </span>
+            <% @task.users.each.with_index(1) do |user, index| %>
+              <div class="input-group user-select-box-sub mb-2">
+                <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name, :selected => user.id), {:class => 'form-control user_form layout-form edit-form', :id => "task_user_id_#{index}"} %>
+              <% if index == 1 %>
+                <span class="input-group-btn">
+                  <button type="button" id="user_additional_button" class="btn btn-info layout-btn">＋</button>
+                  <button type="button" id="user_delete_button" class="btn btn-info layout-btn">−</button>
+                </span>
+              <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div id="teams" class="teams">
+            <%= form.collection_select :team_id, Team.all, :id, :name, {prompt: "選択してください"}, :class => 'col-lg-12 team_id form-control mb-1', :id => 'team_id' %>
+            <div id="team_user-select-box">
+
             </div>
           </div>
         <% elsif @task.assign == 2 %>
+          <div id="user-select-box" class="edit">
+            <div class="input-group user-select-box-sub mb-2">
+              <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name), :class => 'form-control user_form layout-form', :id => 'task_user_id_1' %>
+              <span class="input-group-btn">
+                <button type="button" id="user_additional_button" class="btn btn-info layout-btn">＋</button>
+                <button type="button" id="user_delete_button" class="btn btn-info layout-btn">−</button>
+              </span>
+            </div>
+          </div>
           <div id="teams">
-            <%= form.collection_select :team_id, Team.all, :id, :name, {prompt: "選択してください"}, :class => 'col-lg-12 team_id form-control mb-1', :id => 'team_id' %>
+            <div class="input-group">
+              <%= form.collection_select :team_id, Team.all, :id, :name, {prompt: "選択してください"}, :class => 'col-lg-12 team_id form-control mb-1', :id => 'team_id' %>
+              <span class="input-group-btn">
+                <button type="button" id="team_user_additional_button" class="btn btn-info layout-btn">＋</button>
+                <button type="button" id="team_user_delete_button" class="btn btn-info layout-btn">−</button>
+              </span>
+            </div>
             <div id="team_user-select-box">
-              <div class="input-group team_user-select-box-sub mb-2">
-              </div>
+              <% @task.users.each.with_index(1) do |user, index| %>
+                <div class="input-group team_user-select-box-sub mb-2">
+                  <%= select_tag 'task[user_ids][]', options_from_collection_for_select(User.all, :id, :name, :selected => user.id), {:class => 'form-control layout-form edit-form', :id => "task_user_id_#{index}"} %>
+                </div>
+              <% end %>
+
             </div>
           </div>
         <% end %>

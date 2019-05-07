@@ -15,6 +15,9 @@
           <p><%= task.content %></p>
           <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
           <p>作成者：<%= link_to task.user.name, user_path(task.user), class:"no-link" %></p>
+          <% unless task.team_id.nil? %>
+            <p>チーム：<%= Team.where(id: task.team_id).first.name %></p>
+          <% end %>
           <% unless task.users.empty? %>
             <p>担当者：
               <% task.users.each do |user| %>

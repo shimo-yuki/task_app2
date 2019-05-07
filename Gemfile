@@ -77,3 +77,4 @@ gem 'data-confirm-modal'
 gem "font-awesome-rails"
 gem 'momentjs-rails'
 gem 'bootstrap4-datetime-picker-rails'
+gem 'rails-i18n'

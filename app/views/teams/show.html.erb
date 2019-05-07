@@ -117,14 +117,13 @@
             </div>
           <% end %>
           <p class="comment-notice">入力してください</p>
-          <div class="comment-new">
-            <%= form_for @comment do |f| %>
-              <%= f.text_area :comment, class:"col-lg-10 offset-md-1", id:"comment" %>
-              <%= f.hidden_field :team_id, value: @team.id, id:"team_id" %>
-              <%= f.hidden_field :team_id, value: current_user.id, id:"user_id" %>
-              <%= f.hidden_field :team_id, value: current_user.name, id:"user_name" %>
-              <%= f.submit 'コメント', method: :post, class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2", id:"team-comment"%>
-            <% end %>
+         <div class="comment-new">
+           <%= form_for @comment do |f| %>
+             <%= f.text_area :comment, class:"col-lg-10 offset-md-1", id:"comment" %>
+             <%= f.hidden_field :team_id, value: @team.id, id:"team_id" %>
+             <%= f.hidden_field :user_id, value: current_user.id, id:"user_id" %>
+             <%= f.submit 'コメント', method: :post, class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2", id:"team-comment"%>
+           <% end %>
           </div>
         </div>
       </div>

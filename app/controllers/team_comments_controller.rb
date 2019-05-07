@@ -4,9 +4,9 @@ class TeamCommentsController < ApplicationController
   before_action :set_comment, only: [:destroy, :edit, :update]
 
   def create
-    @comment = TeamComment.new(comment: params[:comment], team_id: params[:team_id], user_id: params[:user_id])
-    @comment.user_id = current_user.id
-    @comment.save
+     @comment = TeamComment.new(comment: params[:comment], team_id: params[:team_id])
+     @comment.user_id = current_user.id
+     @comment.save
   end
 
   def destroy

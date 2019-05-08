@@ -26,12 +26,15 @@ class TasksController < ApplicationController
     else
       @task.team_id = nil
     end
-    binding.pry
     if @task.save
       redirect_to @task, notice: 'タスクを作成しました'
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @users = User.select('name', 'id')
   end
 
   def update
@@ -48,6 +51,11 @@ class TasksController < ApplicationController
   end
 
   def assign
+  end
+
+  def set_edit_task
+    @task = Task.find(params[:task_id])
+    @users = @task.users
   end
 
   def team_select

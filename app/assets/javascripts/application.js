@@ -12,7 +12,7 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require_tree .
+
 //= require jquery3
 //= require popper
 //= require jquery
@@ -22,6 +22,7 @@
 //= require moment
 //= require moment/ja.js
 //= require tempusdominus-bootstrap-4.js
+
 
 $(function(){
   $('#team-comment').on("click", function(e){
@@ -170,7 +171,7 @@ $(function($) {
     //現在選択されているオプションのvalをとってくる
     var user_ids = [];
     user_ids = $(`#task_user_id_${selectCount} option:not(:selected)`);
-
+    console.log(user_ids);
     if(optionCount > 1){
       $('#user-select-box:last').append('<div class="input-group user-select-box-sub remove-user-form mb-2"></div>')
       $('.user-select-box-sub:last').append(`<select name="task[user_ids][]" class="user_form form-control layout-form" id="task_user_id_${selectCount + 1}"></select><span class="input-group-btn"></span>`);

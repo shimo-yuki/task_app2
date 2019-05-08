@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'tasks#index'
   get 'tasks/team_select' => 'tasks#team_select'
   get 'tasks/add_user' => 'tasks#add_user'
+  get 'tasks/set_edit_task' => 'tasks#set_edit_task'
   resources :tasks do
     resources :favorites, only: [:create, :destroy]
   end

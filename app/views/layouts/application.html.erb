@@ -11,7 +11,7 @@
 
   </head>
 
-  <body>
+  <body data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
     <%= render 'layouts/header' %>
     <p class="alert-success text-center", id="notice"><%= notice %></p>
     <div class="container">

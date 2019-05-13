@@ -3,26 +3,24 @@
     <h2>
       <%= @task.title %>
     </h2>
-    <%= @task.content %><br>
-    期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %><br>
-    作成者：<%= link_to @task.user.name, user_path(@task.user), class:"no-link" %><br>
+    <p><%= @task.content %></p>
+    <p>期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></p>
+    <p>作成者：<%= link_to @task.user.name, user_path(@task.user), class:"no-link" %></p>
     <% if @team != nil %>
-      <% unless @task.users.empty? %>
-        <p>担当者：
-          <% @task.users.each do |user| %>
-            <%= link_to user.name, user_path(user), class:"no-link"%>／
-          <% end %>
-        </p>
-      <br>
-      <% end %>
       <P>担当チーム：<%= link_to @team.name, team_path(@team), class:"no-link" %></P>
     <% end %>
-
-    ステータス：<%= @task.display_status %><br>
+    <% unless @task.users.empty? %>
+      <p>担当者：
+        <% @task.users.each do |user| %>
+          <%= link_to user.name, user_path(user), class:"no-link"%>／
+        <% end %>
+      </p>
+    <% end %>
+    <p>ステータス：<%= @task.display_status %></p>
     <%= link_to '一覧へ戻る', root_path, class: "btn btn-light" %>
     <%if @task.current_user?(current_user) %>
       <%= link_to '編集', edit_task_path(@task), class: "btn btn-info" %>
-      <%= link_to 'アサイン', assign_path(@task), class: "btn btn-success" %>
+      <%= link_to '削除', task_path(@task), class: "btn btn-danger", method: :delete %>
     <% else %>
       <% if @task.favorite_by?(current_user) %>
         <%= link_to '保存解除',task_favorite_path(@task, @task.favorite_by?(current_user)), method: :delete, data: { confirm: '本当に解除しますか?',cancel: 'やめる',

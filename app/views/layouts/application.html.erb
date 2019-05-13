@@ -13,7 +13,9 @@
 
   <body data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
     <%= render 'layouts/header' %>
-    <p class="alert-success text-center", id="notice"><%= notice %></p>
+    <div id="alert">
+      <p class="alert-success text-center", id="notice"><%= notice %></p>
+    </div>
     <div class="container">
       <%= yield %>
     </div>

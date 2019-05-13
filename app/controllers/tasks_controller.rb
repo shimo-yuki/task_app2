@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :destroy, :update]
+  before_action :authenticate_user!, only: [:new, :show, :edit, :destroy, :update]
   before_action :set_task, only: [:show]
   before_action :set_mytask, only: [:edit, :update, :destroy, :assign]
   before_action :set_select_team, only: [:team_select]
@@ -38,6 +38,10 @@ class TasksController < ApplicationController
   end
 
   def update
+    binding.pry
+    if  params[:task][:assign] == 1.to_s
+       @task.team_id = nil
+     end
     if @task.update(task_params)
       redirect_to @task, notice: 'タスクを更新しました'
     else
@@ -55,7 +59,7 @@ class TasksController < ApplicationController
 
   def set_edit_task
     @task = Task.find(params[:task_id])
-    @users = @task.users
+    @users = @task.users.order(:id)
   end
 
   def team_select
@@ -81,6 +85,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :assign, :user_id,{ user_ids: []}, :status, :team_id)
+    params.require(:task).permit(:title, :content, :deadline, :assign, :user_id,{ user_ids: []}, :status)
   end
 end

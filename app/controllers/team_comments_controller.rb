@@ -11,6 +11,7 @@ class TeamCommentsController < ApplicationController
 
   def destroy
     @comment.destroy
+    flash[:notice] = 'コメントを削除しました。'
     redirect_to team_path(@comment.team_id)
   end
 
@@ -18,6 +19,7 @@ class TeamCommentsController < ApplicationController
 
   def update
     @comment.update(comment_params)
+    flash[:notice] = 'コメントを更新しました。'
     redirect_to team_path(@comment.team_id)
   end
 

@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
   has_many :user_team, :dependent => :destroy
-  has_many :users, through: :user_team, source: :user
+  has_many :users, through: :user_team, source: :user,  :dependent => :delete_all
   belongs_to :user
   has_many :team_comments, :dependent => :destroy
 

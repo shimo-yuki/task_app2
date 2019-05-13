@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_17_044222) do
+ActiveRecord::Schema.define(version: 2019_05_13_012429) do
 
   create_table "assigns", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "user_id"
@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(version: 2019_04_17_044222) do
     t.string "title"
     t.string "content"
     t.datetime "deadline"
+    t.integer "user_id"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "user_id"
     t.integer "assign"
     t.string "team_id"
   end

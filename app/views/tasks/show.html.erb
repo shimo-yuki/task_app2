@@ -18,17 +18,18 @@
     <% end %>
     <p>ステータス：<%= @task.display_status %></p>
     <%= link_to '一覧へ戻る', root_path, class: "btn btn-light" %>
+    <% if @task.favorite_by?(current_user) %>
+      <%= link_to '保存解除',task_favorite_path(@task, @task.favorite_by?(current_user)), method: :delete, data: { confirm: '本当に解除しますか?',cancel: 'やめる',
+      commit: '解除する'}, title: '保存解除確認', class: "btn btn-success" %>
+    <% else %>
+      <%= link_to '保存する', task_favorites_path(@task),method: :post, class: "btn btn-success" %>
+    <% end %>
     <%if @task.current_user?(current_user) %>
       <%= link_to '編集', edit_task_path(@task), class: "btn btn-info" %>
       <%= link_to '削除', task_path(@task), class: "btn btn-danger", method: :delete %>
-    <% else %>
-      <% if @task.favorite_by?(current_user) %>
-        <%= link_to '保存解除',task_favorite_path(@task, @task.favorite_by?(current_user)), method: :delete, data: { confirm: '本当に解除しますか?',cancel: 'やめる',
-        commit: '解除する'}, title: '保存解除確認', class: "btn btn-success" %>
-      <% else %>
-        <%= link_to '保存する', task_favorites_path(@task),method: :post, class: "btn btn-success" %>
-      <% end %>
     <% end %>
+
+
   </div>
 </div>
 

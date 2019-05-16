@@ -40,10 +40,9 @@ ActiveRecord::Schema.define(version: 2019_05_13_012429) do
     t.datetime "deadline"
     t.integer "user_id"
     t.integer "status"
+    t.integer "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "assign"
-    t.string "team_id"
   end
 
   create_table "team_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -63,8 +62,8 @@ ActiveRecord::Schema.define(version: 2019_05_13_012429) do
   end
 
   create_table "user_teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "user_id"
-    t.string "team_id"
+    t.integer "user_id"
+    t.integer "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -87,7 +86,6 @@ ActiveRecord::Schema.define(version: 2019_05_13_012429) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "team_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

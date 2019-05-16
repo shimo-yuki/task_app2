@@ -1,30 +1,30 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!, only: [:new, :show, :edit, :destroy, :update]
   before_action :set_task, only: [:show]
-  before_action :set_mytask, only: [:edit, :update, :destroy, :assign]
+  before_action :set_mytask, only: [:edit, :update, :destroy]
   before_action :set_select_team, only: [:team_select]
-  before_action :set_team, only: [:show]
+
 
   def index
     @tasks = Task.visible
   end
 
   def new
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+    end
     @task = Task.new
-    @task.assigns.build
   end
 
   def show
-    @comment = Comment.new
-    @comments = @task.comments
+
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
-    if params[:task][:assign] == "2"
-      @task.team_id = params[:task][:team_id]
-    else
-      @task.team_id = nil
+    @task = Task.new(task_params)
+    binding.pry
+    if params[:project_id]
+      @task.project_id = params[:project_id]
     end
     if @task.save
       redirect_to @task, notice: 'タスクを作成しました'
@@ -38,10 +38,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    binding.pry
-    if  params[:task][:assign] == 1.to_s
-       @task.team_id = nil
-     end
     if @task.update(task_params)
       redirect_to @task, notice: 'タスクを更新しました'
     else
@@ -85,6 +81,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :assign, :user_id,{ user_ids: []}, :status)
+    params.require(:task).permit(:title, :content, :deadline, :status, :user_id)
   end
 end

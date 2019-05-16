@@ -22,12 +22,27 @@ body{
   font-family: 'Hannotate TC','HanziPen SC','Osaka','TsukuARdGothic-Regular','klee',sans-serif;
 }
 
+.task-index, .c_kantou, #i_kantou{
+  display: inline-block;
+}
+
+.c_kantou, #i_kantou{
+  float: right;
+}
  .clearfix::after{
     content: "";
     display: block;
     clear: both;
  }
 
+.fa-star{
+  color: #ECD070;
+}
+
+.project-name{
+  display: inline-block;
+  float: right;
+}
 .status{
   display: inline-block;
 }

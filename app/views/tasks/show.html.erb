@@ -5,17 +5,11 @@
     </h2>
     <p><%= @task.content %></p>
     <p>期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></p>
-    <p>作成者：<%= link_to @task.user.name, user_path(@task.user), class:"no-link" %></p>
+    <p>担当者：<%= link_to @task.user.name, user_path(@task.user), class:"no-link" %></p>
     <% if @team != nil %>
       <P>担当チーム：<%= link_to @team.name, team_path(@team), class:"no-link" %></P>
     <% end %>
-    <% unless @task.users.empty? %>
-      <p>担当者：
-        <% @task.users.each do |user| %>
-          <%= link_to user.name, user_path(user), class:"no-link"%>／
-        <% end %>
-      </p>
-    <% end %>
+    
     <p>ステータス：<%= @task.display_status %></p>
     <%= link_to '一覧へ戻る', root_path, class: "btn btn-light" %>
     <% if @task.favorite_by?(current_user) %>
@@ -32,7 +26,9 @@
 
   </div>
 </div>
-
+<%
+=begin%>
+ 
 <div>
   <div class="col-lg-10 offset-md-1 mb-5 mt-5 border-secondary">
     <p><i class="fas fa-comment"></i>comment</p>
@@ -69,4 +65,6 @@
       <% end %>
     </div>
   </div>
-</div>
+</div> 
+<%
+=end%>

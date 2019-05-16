@@ -78,3 +78,4 @@ gem "font-awesome-rails"
 gem 'momentjs-rails'
 gem 'bootstrap4-datetime-picker-rails'
 gem 'rails-i18n'
+gem 'record_with_operator'

@@ -1,0 +1,104 @@
+<h1>Project Page</h1>
+<div class="row">
+  <div class="col-lg-8 p-0">
+    <div class="mb-4">
+      <%= form_tag(projects_path,:method => 'get') do %>
+        <div class="input-group mb-2">
+          <%= text_field_tag :search, '', :placeholder =>'プロジェクト検索', :class => 'form-control' %>
+          <span class="input-group-btn">
+            <%= button_tag  :name => nil, type: 'submit', class: "btn btn-success search-button"  do %>
+              <i class="fas fa-search"></i>
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+      <% unless @project.empty? %>
+        <div class="row">
+          <div class="col-lg-12 pr-0">
+            <h4>検索結果</h4>
+          </div>
+          <% @project.each do |project| %>
+            <div class="col-lg-12 pr-0">
+              <div class=" mb-3 mr-3">
+                <div class="card border-primar">
+                  <div class="card-body">
+                    <p>name : <%= project.name %></p>
+                    <p>descr : <%= project.description %></p>
+                    <%= link_to '詳細', project_path(project), class:"btn btn-light" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <% if @admin_projects.present? %>
+          <h5>  管理者のプロジェクト一覧</h5>
+          <div class="row">
+            <% @admin_projects.each do |myproject|%>
+              <div class="col-lg-12 pr-0">
+                <div class="mr-3 mb-3">
+                  <div class="card border-success">
+                    <div class="card-body">
+                      <p>name : <%= myproject.name %></p>
+                      <p>descr : <%= myproject.description %></p>
+                      <%= link_to '詳細', project_path(myproject), class:"btn btn-light" %>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-lg-6">
+        <% if @projects.present? %>
+          <h5>入っているプロジェクトの一覧</h5>
+          <div class="row">
+            <% @projects.each do |project| %>
+              <div class="col-lg-12">
+                <div class="mr-3 mb-3">
+                  <div class="card border-success">
+                    <div class="card-body">
+                      <p>name : <%= project.name %></p>
+                      <p>descr : <%= project.description %></p>
+                      <%= link_to '詳細', project_path(project), class:"btn btn-light" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="col-lg-4">
+    <%= link_to "チームを作成する", new_project_path, class:"btn btn-info col-lg-12 mb-4" %>
+    <% if @new_projects.present? %>
+      <h5>新しいプロジェクトの一覧</h5>
+      <div class="row">
+        <% @new_projects.each do |project| %>
+          <div class="col-lg-12">
+            <div class="mr-3 mb-3">
+              <div class="card border-success">
+                <div class="card-body">
+                  <p>name : <%= project.name %></p>
+                  <p>teema : <%= project.description %></p>
+                  <%= link_to '詳細', project_path(project), class:"btn btn-light" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

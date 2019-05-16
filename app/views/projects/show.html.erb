@@ -1,9 +1,11 @@
 <div class="row">
   <div class="col-lg-12">
+  <h2><%= @project.name%> Page</h2>
     <div class="row">
       <div class="col-lg-6 p-3">
-        <% if @team.user == current_user %>
-          <%= form_tag(team_path(@team),:method => 'get') do %>
+        <% if @project.user == current_user %>
+            <p>ユーザーの追加</p>
+          <%= form_tag(project_path(@project),:method => 'get') do %>
             <div class="input-group mb-2">
               <%= text_field_tag :search, '', :placeholder =>'ユーザ検索', :class => 'form-control' %>
               <span class="input-group-btn">
@@ -13,16 +15,16 @@
               </span>
             </div>
           <% end %>
-          <% unless @users == 0 %>
-            <% if @users.present? %>
+          <% unless @users.nil? %>
+            <% unless @users.empty? %>
               <ul>
                 <% @users.each do |user| %>
                   <% unless user == current_user %>
                     <%= link_to user.name, user_path(user), class:"btn-light" %>
-                    <% if @team.teamed?(user) %>
+                    <% if @project.teamed?(user) %>
                       <追加済み>
                     <% else %>
-                      <%= link_to '＋', team_user_teams_path(@team, user_id: user.id), method: :post, class: 'btn-info rounded-circle p-0' %>
+                      <%= link_to '＋', project_members_path(@project, user_id: user.id), method: :post, class: 'btn-info rounded-circle p-0' %>
                     <% end %><br>
                   <% end %>
                 <% end %>
@@ -36,17 +38,19 @@
         <div class="card bg-light  mb-3">
           <div class="card-body">
             <div>
-              テーマ：<%= @team.teema %>
+              テーマ：<%= @project.description %>
             </div>
             <div>
-              管理者：<%= @team.user.name %>
+              管理者：<%= @project.user.name %>
             </div>
             <div>
               メンバー：
-              <% @team.users.each do |team_user| %>
-                <%= link_to team_user.name, user_path(team_user), class:"no-link" %>／
+              <% @project.users.each do |user| %>
+                <%= link_to user.name, user_path(user), class:"no-link" %>／
               <% end %>
             </div>
+            <%= link_to '編集', edit_project_path(@project), class: "btn btn-info" %>
+            <%= link_to '削除', project_path(@project), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',commit: '削除する'}, title: '削除確認', class: "btn btn-danger" %>
           </div>
         </div>
 
@@ -79,7 +83,12 @@
           </div>
         <% end %>
       </div>
-      <div class="col-lg-6 border-secondary mt-3">
+      <div class="col-lg-6  mt-3">
+        <%= link_to "プロジェクトタスク作成", new_project_task_path(@project), class:"btn btn-info col-lg-12 mb-4" %>
+      </div> 
+      <%
+=begin%>
+
           <p><i class="fas fa-comment"></i>comment</p>
           <% if @comments.empty? %>
             <div class="box clearfix col-lg-10 offset-md-1">
@@ -127,6 +136,8 @@
           </div>
         </div>
       </div>
-    </div>
+
+<%
+=end%>
   </div>
 </div>

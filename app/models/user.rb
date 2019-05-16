@@ -4,17 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  #自分が属しているタスク
-  has_many :mytsasks, class_name: 'Task', :dependent => :destroy
-  has_many :assigns, :dependent => :destroy
-  has_many :taskusers, through: :assigns, source: :task,  :dependent => :destroy
   #自分が作ったタスク
   has_many :tasks, :dependent => :destroy
-  #自分が作ったチーム
-  has_many :myteams, class_name: 'Team',  :dependent => :destroy
-  #自分が所属しているチーム
-  has_many :user_teams, :dependent => :destroy
-  has_many :teams, through: :user_teams, source: :team, :dependent => :destroy
+  #自分が作ったプロジェクト
+  has_many :myprojects, class_name: 'Project',  :dependent => :destroy
+  #自分が所属しているプロジェクト
+  has_many :members, :dependent => :destroy
+  has_many :projects, through: :members, source: :project, :dependent => :destroy
   #タスクの保存
   has_many :favorites, :dependent => :destroy
   #コメント
@@ -22,7 +18,7 @@ class User < ApplicationRecord
   has_many :team_comments, :dependent => :destroy
 
   def self.search(search)
-      return User.all unless search
+      return nil unless search
       User.where(['name LIKE ?', "%#{search}%"])
   end
 end

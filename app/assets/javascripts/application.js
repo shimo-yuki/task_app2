@@ -193,3 +193,18 @@ function DisabledFalse(){
     $('.disabled_users').prop('disabled',false);
   }
 }
+
+
+function hiraku(tgt){ // 開く
+  if (document.getElementById){
+    tar=document.getElementById(tgt);
+    tar.style.display="";
+  }
+}
+  
+  function toziru(tgt){ // 閉じる
+  if (document.getElementById){
+    tar=document.getElementById(tgt);
+    tar.style.display="none";
+  }
+}

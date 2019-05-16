@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <%= form_for(team) do |f| %>
+    <%= form_for(project) do |f| %>
       <div class="form_group">
         <div class="field">
           <%= f.label :name %>
@@ -9,8 +9,8 @@
       </div>
       <div class="form_group">
         <div class="field">
-          <%= f.label :teema %>
-          <%= f.text_area :teema, class:"col-lg-12 form-control" %>
+          <%= f.label :description %>
+          <%= f.text_area :description, class:"col-lg-12 form-control" %>
         </div>
       </div>
       <%= f.submit'登録する', class: "btn btn-success mt-2" %>

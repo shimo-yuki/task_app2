@@ -1,11 +1,9 @@
 class Task < ApplicationRecord
   has_many :favorites, :dependent => :destroy
   belongs_to :user
-  has_many :assigns, :dependent => :destroy
-  has_many :users, through: :assigns, source: :user, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 
-  validates :title, :content, :deadline, :status, :assign, presence: true
+  validates :title, :content, :deadline, :status, presence: true
 
   def display_status
     case status

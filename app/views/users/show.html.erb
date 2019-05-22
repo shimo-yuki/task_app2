@@ -1,10 +1,30 @@
+<div class="row">
+  <div class="col-lg-6">
+    <% if @user == current_user %>
+      <h1>My Task</h1>
+    <% else %>
+      <h1> <%= @user.name %> Task </h1>
+    <% end %>
+  </div>
+  <div class="form-group col-lg-6"> 
+    <div class="row">
+      <div class="col-lg-3">           
+        <%= link_to 'すべて', user_path(id: current_user.id, status: 0), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '0' || params[:status].nil?} "%>
+      </div>
+      <div class="col-lg-3"> 
+        <%= link_to '未対応', user_path(id: current_user.id, status: 1), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '1'} " %>
+      </div>
+      <div class="col-lg-3"> 
+        <%= link_to '対応中', user_path(id: current_user.id,status: 2), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '2'} " %>
+      </div>
+      <div class="col-lg-3"> 
+        <%= link_to '対応済', user_path(id: current_user.id,status: 3), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '3'} " %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= link_to "New Task", new_task_path, class:"btn btn-light col-lg-12 mb-3" %>
 
-<% if @user == current_user %>
-  <h1>My Task</h1>
-  <%= link_to "New Task", new_task_path, class:"btn btn-light col-lg-12 mb-3" %>
-<% else %>
-  <h1> <%= @user.name %> Task </h1>
-<% end %>
 <div class="row">
   <% @tasks.each do |task| %>
     <div class="col-lg-6">
@@ -22,17 +42,12 @@
             <% end %>
           </div>
           <div class="card-body">
-            <p><%= task.content %></p>
+            <p><%= task.content.truncate(35) %></p>
             <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
             <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link"%></p>
             <p>ステータス：<%= task.display_status %></p>
             <div>
               <%= link_to "詳細", task_path(task), class:"btn btn-light" %>
-              <% if task.user == current_user %>
-                <%= link_to "編集", edit_task_path(task), class:"btn btn-info" %>
-                <%= link_to "削除", task_path(task), data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-                commit: '削除する'}, title: '削除確認', method: :delete, class:"btn btn-danger" %>
-              <% end %>
             </div>
           </div>
         </div>

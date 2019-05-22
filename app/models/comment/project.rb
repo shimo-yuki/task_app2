@@ -1,0 +1,2 @@
+class CommentProject < Comment
+end

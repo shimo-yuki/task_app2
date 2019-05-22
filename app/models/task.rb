@@ -1,9 +1,11 @@
 class Task < ApplicationRecord
   has_many :favorites, :dependent => :destroy
   belongs_to :user
-  has_many :comments, :dependent => :destroy
+  # has_many :comments, :dependent => :destroy
 
-  validates :title, :content, :deadline, :status, presence: true
+  validates :deadline, :status, presence: true
+  validates :title, length: { in: 1..10 } 
+  validates :content, length: { in: 1..50 }
 
   def display_status
     case status
@@ -29,7 +31,7 @@ class Task < ApplicationRecord
   end
 
   scope :visible, -> {
-    where(status: [0, 1])
+    where(status: [1, 2])
   }
 
 end

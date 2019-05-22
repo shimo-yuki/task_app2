@@ -1,35 +1,49 @@
-<h1>Storage Task</h1>
+<div class="row">
+  <div class="col-lg-6">
+    <h1>Storage Task</h1>
+  </div>
+    <div class="form-group col-lg-6"> 
+    <div class="row">
+      <div class="col-lg-3">           
+        <%= link_to 'すべて', favorites_path(status: 0), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '0' || params[:status].nil?} "%>
+      </div>
+      <div class="col-lg-3"> 
+        <%= link_to '未対応', favorites_path(status: 1), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '1'} " %>
+      </div>
+      <div class="col-lg-3"> 
+        <%= link_to '対応中', favorites_path(status: 2), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '2'} " %>
+      </div>
+      <div class="col-lg-3"> 
+        <%= link_to '対応済', favorites_path(status: 3), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '3'} " %>
+      </div>
+    </div>
+  </div>
+</div>
   <div class="row">
-    <% @favorites.each do |favorite| %>
+    <% @tasks.each do |task| %>
       <div class="col-lg-6 pb-3">
-        <% if favorite.task.expired? %>
+        <% if task.expired? %>
         <div class="card border-danger">
           <div class="card-header bg-danger">
         <% else %>
         <div class="card border-success">
           <div class="card-header bg-success">
         <% end %>
-            <%= favorite.task.title %>
+          <% if task.user == current_user %>
+            <i class="fas fa-star"></i>
+          <% end %>
+            <%= task.title %>
+            <% unless task.project_id.nil? %>
+              <div class="project-name"><%= Project.where(id: task.project_id).first.name %></div>
+            <% end %>
           </div>
         <div class="card-body">
-          <p><%= favorite.task.content %></p>
-          <p>期限：<%= favorite.task.deadline.strftime("%Y年%m月%d日") %></p>
-          <p>作成者：<%= link_to favorite.task.user.name, user_path(favorite.task.user), class:"no-link" %></p>
-          <% unless favorite.task.users.empty? %>
-            <p>担当者：
-              <% favorite.task.users.each do |user| %>
-                <%= link_to user.name, user_path(user), class:"no-link"%>／
-              <% end %>
-            </p>
-          <% end %>
-          <p>ステータス：<%= favorite.task.display_status %></p>
+          <p><%= task.content %></p>
+          <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
+          <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link" %></p>
+          <p>ステータス：<%= task.display_status %></p>
           <div>
-            <%= link_to "詳細", task_path(favorite.task), class: "btn btn-light" %>
-            <% if favorite.task.user == current_user %>
-              <%= link_to "編集", edit_task_path(favorite.task), class: "btn btn-info" %>
-              <%= link_to "削除", task_path(favorite.task), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-              commit: '削除する'}, title: '削除確認', class: "btn btn-danger" %>
-            <% end %>
+            <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
           </div>
         </div>
       </div>

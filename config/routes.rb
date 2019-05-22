@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'tasks#index'
+  # get 'tasks/set_tasks' => 'tasks#set_tasks'
   resources :tasks do
     resources :favorites, only: [:create, :destroy]
   end

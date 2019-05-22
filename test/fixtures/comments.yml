@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  string: 
-  comtemt: MyString
+  user_id: MyString
+  content: MyString
+  type: 
 
 two:
-  string: 
-  comtemt: MyString
+  user_id: MyString
+  content: MyString
+  type: 

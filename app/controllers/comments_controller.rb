@@ -3,9 +3,12 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :destroy, :update]
 
   def create
-    @comment = current_user.comments.build(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+  
+    
     @comment.save
-    redirect_to task_path(@comment.task)
+    redirect_to task_path(id: 1)
   end
 
   def edit; end
@@ -27,7 +30,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:task_id, :content)
+    params.require(:comment).permit(:content, :type)
   end
 
 end

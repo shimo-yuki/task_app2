@@ -10,7 +10,6 @@
           </ul>
         </div>
       <% end %>
-      
 
       <div class="form_group">
         <div class="field">
@@ -34,43 +33,37 @@
             <%= form.hidden_field :project_id, value: @project.id, name: 'project_id' %> 
           </div>
         </div>
-      <% else %>  
+      <% else %> 
         <%= form.hidden_field :user_id, value: current_user.id%> 
-      <% end %>  
-
+      <% end %> 
 
       <%= form.label :deadline %><br>
       <div class="input-group form_group" data-target-input="nearest">
 
-        <%= form.text_field :deadline, id: "deadline", value: DateTime.now.to_s(:datetime), class:  "form-control datepicker", data: { target: '#deadline'} %>
+        <%= form.text_field :deadline, id: "deadline", value: DateTime.now.to_s(:datetime), class: "form-control datepicker", data: { target: '#deadline'} %>
         <div class="input-group-append" data-target="#deadline" data-toggle="datetimepicker">
           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
       </div>
-
-      <div class="form_group">
-        <div class="field">
-          <div class="status">
-            <%= form.label :status %>
-          </div>
-
-          <div class="status">
-            <%= form.radio_button :status, "1", class: "status"%>
-          </div>
-
-          <div class="status">
-            未対応
-          </div>
-
-          <div class="status">
-            <%= form.radio_button :status, "2", class: "status" %>
-          </div>
-
-          <div class="status">
-            対応済み
-          </div>
+      <div class="form-group">
+        <div class="col-sm-1 pl-0">
+          <%= form.label :status, '状態', {class: 'form-label'} %>
+        </div>
+        <div class="col-sm-10 pl-0 btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-secondary  mt" style="width:30%">
+            <%= form.radio_button :status, "1" %>未対応
+          </label>
+          <% unless task.id.nil? %>
+            <label class="btn btn-outline-secondary" style="width:30%">
+              <%= form.radio_button :status, "2", class:"label" %>対応中
+            </label>
+          <% end %>
+          <label class="btn btn-outline-secondary" style="width:30%">
+            <%= form.radio_button :status, "3" %>対応済
+          </label>
         </div>
       </div>
+
 
       <div class="actions">
         <%= form.submit '登録する', class: "btn btn-success mt-2", id: "task_submit", onclick: "DisabledFalse()" %>

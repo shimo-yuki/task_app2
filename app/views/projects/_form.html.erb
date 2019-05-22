@@ -1,6 +1,15 @@
 <div class="row">
   <div class="col-lg-12">
     <%= form_for(project) do |f| %>
+    <% if project.errors.any? %>
+        <div class="alert-danger", id="error_explanation">
+          <ul>
+            <% project.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="form_group">
         <div class="field">
           <%= f.label :name %>

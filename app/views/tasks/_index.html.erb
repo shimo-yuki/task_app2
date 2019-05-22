@@ -1,0 +1,31 @@
+<div class="row">
+<% tasks.each do |task| %>
+    <div class="col-lg-6 pr-3 pb-3">
+    <% if task.expired? %>
+    <div class="card border-success">
+        <div class="card-header bg-success">
+    <% else %>
+    <div class="card border-danger">
+        <div class="card-header bg-danger">
+    <% end %>
+    <% if task.user == current_user %>
+        <i class="fas fa-star"></i>
+    <% end %>
+        <%= task.title %>
+        <% unless task.project_id.nil? %>
+            <div class="project-name"><%= Project.where(id: task.project_id).first.name %></div>
+        <% end %>
+        </div>
+    <div class="card-body">
+        <p><%= task.content.truncate(35) %></p>
+        <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
+        <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link" %></p>
+
+        <p>ステータス：<%= task.display_status %></p>
+        <div>
+        <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
+        </div>
+    </div>
+    </div>
+</div>
+<% end %>

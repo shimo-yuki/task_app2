@@ -6,8 +6,8 @@
     <p><%= @task.content %></p>
     <p>期限：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></p>
     <p>担当者：<%= link_to @task.user.name, user_path(@task.user), class:"no-link" %></p>
-    <% if @team != nil %>
-      <P>担当チーム：<%= link_to @team.name, team_path(@team), class:"no-link" %></P>
+    <% unless @task.project_id.nil? %>
+      <P>プロジェクト：<%= link_to Project.find(@task.project_id).name, project_path(@task.project_id), class:"no-link" %></P>
     <% end %>
     
     <p>ステータス：<%= @task.display_status %></p>
@@ -26,13 +26,13 @@
 
   </div>
 </div>
-<%
-=begin%>
- 
-<div>
+
+ <div>
   <div class="col-lg-10 offset-md-1 mb-5 mt-5 border-secondary">
     <p><i class="fas fa-comment"></i>comment</p>
-    <% @comments.each do |comment| %>
+    <%
+=begin%>
+ <% @comments.each do |comment| %>
       <div class="box clearfix col-lg-10 offset-md-1">
         <% if comment.user == current_user %>
           <div class="mycomment">
@@ -56,15 +56,15 @@
           </div>
         <% end %>
       </div>
-    <% end %>
+    <% end %> 
+<%
+=end%>
     <div class="comment-new">
-      <%= form_for @comment do |f| %>
+      <%= form_for @task_comment do |f| %>
         <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
-        <%= f.hidden_field :task_id, value: @task.id %>
-        <%= f.submit 'コメント',  class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
+        <%= f.hidden_field :type, value: @task_comment.type %>
+        <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
       <% end %>
     </div>
   </div>
 </div> 
-<%
-=end%>

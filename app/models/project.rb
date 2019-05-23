@@ -4,12 +4,11 @@ class Project < ApplicationRecord
   has_many :members, :dependent => :destroy
   has_many :users, through: :members, source: :user, :dependent => :delete_all
   has_many :tasks
+  has_many :comments, class_name: 'Comment::Project', as: :commentable, dependent: :destroy
   belongs_to :user, foreign_key: 'created_by'
   validates :name, length: { in: 1..15 }
   validates :description, length: { in: 1..50 }
   validates :name, uniqueness: true
- 
-
 
   def teamed?(user)
     Member.find_by(user_id: user.id, project_id: id).present?

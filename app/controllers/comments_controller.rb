@@ -3,12 +3,19 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :destroy, :update]
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user_id = current_user.id
-  
-    
+    if params[:type] == "Comment::Task"
+      @com = Task.find(params[:id])
+    else
+      @com = Project.find(params[:id])
+    end
+    @comment = @com.comments.build(comment_params)
+    @comment.user_id = current_user.id  
     @comment.save
-    redirect_to task_path(id: 1)
+    if params[:type] == "Comment::Task"
+      redirect_to task_path(@com)
+    else
+      redirect_to project_path(@com)
+    end
   end
 
   def edit; end
@@ -30,7 +37,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content, :type)
+    params.require(params[:type].underscore.gsub('/', '_').to_sym).permit(:content)
   end
 
 end

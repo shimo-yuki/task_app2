@@ -1,3 +1,2 @@
-class Task < Comment
-    has_many :tasks
+class Comment::Task < Comment
 end

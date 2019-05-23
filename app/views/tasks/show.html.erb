@@ -22,49 +22,41 @@
       <%= link_to '編集', edit_task_path(@task), class: "btn btn-info" %>
       <%= link_to '削除', task_path(@task), class: "btn btn-danger", method: :delete %>
     <% end %>
-
-
   </div>
 </div>
 
- <div>
-  <div class="col-lg-10 offset-md-1 mb-5 mt-5 border-secondary">
-    <p><i class="fas fa-comment"></i>comment</p>
-    <%
-=begin%>
- <% @comments.each do |comment| %>
-      <div class="box clearfix col-lg-10 offset-md-1">
-        <% if comment.user == current_user %>
-          <div class="mycomment">
-            <div class="my-say">
-              <p><%= comment.content %></p>
-              <div class="link">
-                <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
-                <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-                commit: '削除する'}, class:"btn-light delete-comment" %>
-              </div>
+<div class="col-lg-10 offset-md-1 mb-5 mt-5 border-secondary">
+  <p><i class="fas fa-comment"></i>comment</p>
+  <% @comments.each do |comment| %>
+    <div class="box clearfix col-lg-10 offset-md-1">
+      <% if comment.user == current_user %>
+        <div class="mycomment">
+          <div class="my-say">
+            <p><%= comment.content %></p>
+            <div class="link">
+              <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
+              <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+              commit: '削除する'}, class:"btn-light delete-comment" %>
             </div>
           </div>
-        <% else %>
-          <div class="comment-name">
-            <p><%= comment.user.name %></p>
-          </div>
-          <div class="chatting">
-            <div class="comment-top">
-              <p><%= comment.content %></p>
-              </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %> 
-<%
-=end%>
-    <div class="comment-new">
-      <%= form_for @task_comment do |f| %>
-        <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
-        <%= f.hidden_field :type, value: @task_comment.type %>
-        <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
+        </div>
+      <% else %>
+        <div class="comment-name">
+          <p><%= comment.user.name %></p>
+        </div>
+        <div class="chatting">
+          <div class="comment-top">
+            <p><%= comment.content %></p>
+            </div>
+        </div>
       <% end %>
     </div>
+  <% end %> 
+  <div class="comment-new">
+    <%= form_for @comment, url: comments_path(id: @task.id) do |f| %>
+      <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
+      <%= hidden_field_tag :type,@comment.type %>
+      <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
+    <% end %>
   </div>
-</div> 
+</div>

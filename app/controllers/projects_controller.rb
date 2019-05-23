@@ -39,9 +39,8 @@ class ProjectsController < ApplicationController
     else
       @tasks = Task.where(project_id: @project.id, status: params[:status])
     end
-   
-    # @comment = TeamComment.new
-    # @comments = TeamComment.where(team_id: @team.id)
+    @comment = Comment::Project.new
+    @comments = @project.comments
     if params[:search].present?
       @users = User.search(params[:search])
     else

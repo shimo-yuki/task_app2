@@ -20,10 +20,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task_comment = Comment.new type: "CommentTask"
+    @comment = Comment::Task.new
+    @comments = @task.comments
   end
 
   def create
+    binding.pry
     @task = Task.new(task_params)
     if params[:project_id]
       @task.project_id = params[:project_id]

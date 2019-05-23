@@ -1,7 +1,7 @@
-
 <div class="col-lg-12">
   <h2><%= @project.name%> Page</h2>
 </div>
+
 <div class="row">
   <div class="col-lg-6 p-3"> 
     <% if @project.user == current_user %>
@@ -45,23 +45,13 @@
       <% end %>
     <% end %>
     <%= link_to "プロジェクトタスク作成", new_project_task_path(@project), class:"btn btn-info col-lg-12 mb-4" %>
-  <div class="form-group col-lg-12"> 
-    <div class="row">
-      <div class="col-lg-3">           
-        <%= link_to 'すべて', project_path(id: @project.id, status: 0), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '0' || params[:status].nil?} "%>
-      </div>
-      <div class="col-lg-3"> 
-        <%= link_to '未対応', project_path(id: @project.id, status: 1), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '1'} " %>
-      </div>
-      <div class="col-lg-3"> 
-        <%= link_to '対応中', project_path(id: @project.id, status: 2), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '2'} " %>
-      </div>
-      <div class="col-lg-3"> 
-        <%= link_to '対応済', project_path(id: @project.id, status: 3), class: "btn btn-outline-secondary col-lg-12 #{'active' if params[:status] == '3'} " %>
-      </div>
+    <div class="form-group col-lg-12">      
+        <%= link_to 'すべて', project_path(id: @project.id, status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
+        <%= link_to '未対応', project_path(id: @project.id, status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
+        <%= link_to '対応中', project_path(id: @project.id, status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>
+        <%= link_to '対応済', project_path(id: @project.id, status: 3), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '3'} " %> 
     </div>
   </div>
-</div>
   <div class="col-lg-6">
     <div class="card bg-light mb-3">
       <div class="card-body">
@@ -123,59 +113,39 @@
       </div>
     <% end %>
   </div>
-
-      <%
-=begin%>
-
-          <p><i class="fas fa-comment"></i>comment</p>
-          <% if @comments.empty? %>
-            <div class="box clearfix col-lg-10 offset-md-1">
-              <div class="comment-name">
-              </div>
-              <div class="chatting">
-                <div class="comment-top">
-                  <p>ようこそ！</p>
-                </div>
+  <div class="col-lg-6 border-secondary">
+    <p><i class="fas fa-comment"></i>comment</p>
+    <% @comments.each do |comment| %>
+      <div class="box clearfix col-lg-10 offset-md-1">
+        <% if comment.user == current_user %>
+          <div class="mycomment">
+            <div class="my-say">
+              <p><%= comment.content %></p>
+              <div class="link">
+                <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
+                <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                commit: '削除する'}, class:"btn-light delete-comment" %>
               </div>
             </div>
-          <% end %>
-          <% @comments.each do |comment| %>
-            <div class="box clearfix col-lg-10 offset-md-1">
-              <% if comment.user == current_user %>
-                <div class="mycomment">
-                  <div class="my-say">
-                    <p><%= comment.comment %></p>
-                    <div class="link">
-                      <%= link_to '編集', edit_team_comment_path(comment), class:"btn-light edit-comment" %>
-                      <%= link_to '削除', team_comment_path(comment), data: {comment_id: comment.id}, method: :delete,data: {confirm: "本当に削除しますか？"}, class:"btn-light delete-comment" %>
-                    </div>
-                  </div>
-                </div>
-              <% else %>
-                <div class="comment-name">
-                  <p><%= comment.user.name %></p>
-                </div>
-                <div class="chatting">
-                  <div class="comment-top">
-                    <p><%=comment.comment %></p>
-                    </div>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-          <p class="comment-notice">入力してください</p>
-         <div class="comment-new">
-           <%= form_for @comment do |f| %>
-             <%= f.text_area :comment, class:"col-lg-10 offset-md-1", id:"comment" %>
-             <%= f.hidden_field :team_id, value: @team.id, id:"team_id" %>
-             <%= f.hidden_field :user_id, value: current_user.id, id:"user_id" %>
-             <%= f.submit 'コメント', method: :post, class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2", id:"team-comment"%>
-           <% end %>
           </div>
-        </div>
+        <% else %>
+          <div class="comment-name">
+            <p><%= comment.user.name %></p>
+          </div>
+          <div class="chatting">
+            <div class="comment-top">
+              <p><%= comment.content %></p>
+              </div>
+          </div>
+        <% end %>
       </div>
-
-<%
-=end%>
+    <% end %> 
+    <div class="comment-new">
+      <%= form_for @comment, url: comments_path(id: @project.id) do |f| %>
+        <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
+        <%= hidden_field_tag :type,@comment.type %>
+        <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
+      <% end %>
+    </div>
   </div>
 </div>

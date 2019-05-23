@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
   has_many :favorites, :dependent => :destroy
   belongs_to :user
-  # has_many :comments, :dependent => :destroy
+  has_many :comments, class_name: 'Comment::Task', as: :commentable , dependent: :destroy
 
   validates :deadline, :status, presence: true
   validates :title, length: { in: 1..10 } 

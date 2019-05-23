@@ -1,2 +1,2 @@
-class CommentProject < Comment
+class Comment::Project < Comment
 end

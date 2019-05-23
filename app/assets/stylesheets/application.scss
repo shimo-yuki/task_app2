@@ -16,27 +16,35 @@
  @import "font-awesome";
  @import "tempusdominus-bootstrap-4.css";
 
+.clearfix::after{
+  content: "";
+  display: block;
+  clear: both;
+}
 body{
   background-color: #E1E3E4;
   color: #5D5D5E;
   font-family: 'Hannotate TC','HanziPen SC','Osaka','TsukuARdGothic-Regular','klee',sans-serif;
 }
 
-.task-index, .c_kantou, #i_kantou{
+h1{
+  font-family: 'HanziPen SC','Hannotate TC','HanziPen TC','Hannotate SC', sans-serif;
+}
+
+.task-index, .btn-sticky, .status, .chatting, .comment-top, .comment-name {
   display: inline-block;
 }
 
 .project-add-user .btn-light, .project-add-user .btn-light:hover{
   background-color: #E1E3E4;
-
 }
 
 .project-add-user{
   margin-top: 2%;
   margin-bottom: 3%;
 }
+
 .btn-sticky {
-  display: inline-block;
   padding: 0 1em;
   text-decoration: none;
   background: #f7f7f7;
@@ -45,25 +53,15 @@ body{
   font-weight: bold;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
 }
+
 .btn-sticky:active {
   box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.1);
   transform: translateY(2px);
 }
 
-.project-question{
-  width: 100%;
-}
 .btn-sticky:hover{
   color: #df7c81;;/*文字色*/
 }
-.c_kantou, #i_kantou{
-  float: right;
-}
- .clearfix::after{
-    content: "";
-    display: block;
-    clear: both;
- }
 
 .fa-star{
   color: #ECD070;
@@ -72,28 +70,12 @@ body{
 .project-name{
   float: right;
 }
-.status{
-  display: inline-block;
-}
-
-.teams, .assign_form{
-  display: none;
-}
-
-.comment-form{
-  height: 100%;
-}
-
-.chatting{
-  display: inline-block;
-}
 
 .comment-notice{
   display: none;
 }
 .comment-top {
   position: relative;
-  display: inline-block;
   margin: 1.5em 0 1.5em 15px;
   padding: 7px 10px;
   min-width: 250px;
@@ -132,14 +114,10 @@ body{
   margin: 0;
   padding: 0;
 }
-.comment-name{
-  display: inline-block;
-}
 
 .mycomment {
   float: right;
   position: relative;
-   display: inline-block;
    margin: 1.5em 15px 1.5em 0;
    padding: 7px 10px;
    min-width: 70%;
@@ -186,7 +164,6 @@ body{
   background-color: #ffffff;
 }
 
-
 .link{
   position: absolute;
   bottom: 10px;
@@ -211,14 +188,9 @@ body{
   border: 1px solid #dcdcdc !important;
 }
 
-.card{
+.card, .card-header:first-child {
   border-radius: 0;
 }
-
-.card-header:first-child {
-    border-radius: 0;
-}
-
 
 .btn-light{
   background-color: #ECD070;
@@ -268,10 +240,6 @@ body{
   border-left: none;
 }
 
-h1{
-  font-family: 'HanziPen SC','Hannotate TC','HanziPen TC','Hannotate SC', sans-serif;
-}
-
 .edit-comment, .delete-comment{
   background-color: #fff
 }
@@ -280,24 +248,13 @@ h1{
   color: #000;
 }
 
-.layout-form{
-  -webkit-appearance:none;
-  border-top-right-radius:0;
-  border-bottom-right-radius:0;
-}
-
-.layout-btn{
-  border-top-left-radius:0;
-  border-bottom-left-radius:0;
-  border-radius: 50%;
-}
-
 .cp_tooltip {
 	position: relative;
 	display: inline-block;
   cursor: pointer;
   margin: 5px 15px 0 5px
 }
+
 .cp_tooltip .cp_tooltiptext {
 	position: absolute;
 	z-index: 1;
@@ -326,7 +283,10 @@ h1{
   font-size: 17px;
 }
 
-.task1, .task2, .task3{
-  display: none;
+.tab-status{
+  width: 24%;
 }
 
+.box{
+  width: auto;
+}

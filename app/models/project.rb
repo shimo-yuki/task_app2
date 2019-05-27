@@ -1,8 +1,8 @@
 class Project < ApplicationRecord
   include FriendlyId
   friendly_id :name, :use => :slugged
-  has_many :members, :dependent => :destroy
-  has_many :users, through: :members, source: :user, :dependent => :delete_all
+  has_many :members, dependent: :destroy
+  has_many :users, through: :members, source: :user, dependent: :delete_all
   has_many :tasks
   has_many :comments, class_name: 'Comment::Project', as: :commentable, dependent: :destroy
   belongs_to :user, foreign_key: 'created_by'

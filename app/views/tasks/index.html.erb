@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-6">
-  <div class="cp_tooltip">
-      <i class="far fa-question-circle" id="question"></i>
+    <div class="cp_tooltip">
+        <i class="far fa-question-circle" id="question"></i>
         <span class="cp_tooltiptext">
           期限切れのタスクは赤、期限がまだのやつは緑で表示<br>
           自分のタスクは<i class="fas fa-star"></i>マークがある<br>
@@ -10,7 +10,7 @@
     </div>
     <h1 class="task-index">Task List</h1>
   </div>
-  <div class="form-group col-lg-6 p-3">  
+  <div class="form-group col-lg-6 p-3">
     <%= link_to 'すべて', tasks_path(status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
     <%= link_to '未対応', tasks_path(status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
     <%= link_to '対応中', tasks_path(status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>
@@ -20,32 +20,31 @@
 <div class="row">
   <% @tasks.each do |task| %>
       <div class="col-lg-6 pr-3 pb-3">
-      <% if task.expired? %>
-      <div class="card border-success">
-          <div class="card-header bg-success">
-      <% else %>
-      <div class="card border-danger">
-          <div class="card-header bg-danger">
-      <% end %>
-      <% if task.user == current_user %>
+        <% if task.expired? %>
+          <div class="card border-success">
+            <div class="card-header bg-success">
+        <% else %>
+          <div class="card border-danger">
+            <div class="card-header bg-danger">
+        <% end %>
+        <% if task.user == current_user %>
           <i class="fas fa-star"></i>
-      <% end %>
+        <% end %>
           <%= task.title %>
-          <% unless task.project_id.nil? %>
-              <div class="project-name"><%= Project.where(id: task.project_id).first.name %></div>
-          <% end %>
+        <% unless task.project_id.nil? %>
+          <div class="project-name"><%= Project.where(id: task.project_id).first.name %></div>
+        <% end %>
           </div>
-      <div class="card-body">
-          <p><%= task.content.truncate(35) %></p>
-          <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
-          <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link" %></p>
-
-          <p>ステータス：<%= task.display_status %></p>
-          <div>
-          <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
+          <div class="card-body">
+            <p><%= task.content.truncate(35) %></p>
+            <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
+            <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link" %></p>
+            <p>ステータス：<%= task.display_status %></p>
+            <div>
+              <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
+            </div>
           </div>
-      </div>
-      </div>
+        </div>
     </div>
   <% end %>
 </div>

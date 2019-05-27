@@ -15,8 +15,6 @@ class Task::CommentsController < ApplicationController
     end
   end
 
-  def edit; end
-
   def update
     if @comment.update(comment_params)
       flash[:task] = 'タスクのコメントを編集しました'

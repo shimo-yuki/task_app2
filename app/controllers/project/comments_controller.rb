@@ -1,7 +1,7 @@
 class Project::CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:create, :edit, :destroy, :update]
-  before_action :set_comment, only: [:edit, :destroy, :update]
+  before_action :set_project, only: [:create, :destroy, :update]
+  before_action :set_comment, only: [:destroy, :update]
 
   def create
     @comment = @project.comments.build(comment_params)
@@ -16,8 +16,6 @@ class Project::CommentsController < ApplicationController
       render 'projects/show'
     end
   end
-
-  def edit; end
 
   def update
     if @comment.update(comment_params)

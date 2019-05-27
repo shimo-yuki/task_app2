@@ -1,9 +1,0 @@
-<h2>編集</h2>
-<div>
-  <%= form_for @comment do |f| %>
-    <%= f.text_area :comment, class:"col-lg-10 offset-md-1" %>
-    <%= f.hidden_field :uesr_id, value: current_user.id %>
-    <%= f.hidden_field :team_id, value: @comment.team_id %>
-    <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
-  <% end %>
-</div>

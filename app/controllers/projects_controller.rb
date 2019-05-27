@@ -3,18 +3,15 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :destroy, :edit, :update]
 
   def index
-      @admin_projects = Project.where(created_by: current_user)
-      @projects = current_user.projects
-      @new_projects = Project.limit(10).order("created_by DESC")
-      if params[:search].present?
-          # 検索ボタンを押されたら検索する
-          @project = Project.search(params[:search])
-      
-        if @project.empty?
-          #検索結果がなかったら配列の中身を空にする
-          @project = []
-        end
+    @admin_projects = Project.where(created_by: current_user)
+    @projects = current_user.projects
+    @new_projects = Project.limit(10).order("created_by DESC")
+    if params[:search].present?
+      @project = Project.search(params[:search])
+      if @project.empty?
+        @project = []
       end
+    end
   end
 
   def new
@@ -22,15 +19,15 @@ class ProjectsController < ApplicationController
   end
 
   def create
-      @project = Project.new(project_params)
-      @project.created_by = current_user.id
-      if @project.save
-        member = Member.new(user_id: current_user.id, project_id: @project.id)
-        member.save
-        redirect_to project_path(@project), notice: 'プロジェクトを作成しました'
-      else
-        render :new, status: :unprocessable_entity
-      end
+    @project = Project.new(project_params)
+    @project.created_by = current_user.id
+    if @project.save
+      member = Member.new(user_id: current_user.id, project_id: @project.id)
+      member.save
+      redirect_to project_path(@project), notice: 'プロジェクトを作成しました'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -76,5 +73,4 @@ class ProjectsController < ApplicationController
   def set_project
     @project = Project.friendly.find(params[:id])
   end
-
 end

@@ -29,6 +29,7 @@ class Task::CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
+    flash[:task] = 'タスクのコメントを削除しました'
     redirect_to task_path(@task)
   end
 

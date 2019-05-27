@@ -31,6 +31,7 @@ class Project::CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
+    flash[:notice] = 'プロジェクトのコメントを削除しました'
     redirect_to project_path(@project)
   end
 

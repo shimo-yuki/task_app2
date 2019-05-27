@@ -120,9 +120,8 @@ h1{
   position: relative;
    margin: 1.5em 15px 1.5em 0;
    padding: 7px 10px;
-   min-width: 70%;
-   max-width: 100%;
-   height: 100px;
+   min-width: 50%;
+   max-width: 70%;
    color: #555;
    font-size: 16px;
    background: #F6F6F6;
@@ -165,9 +164,7 @@ h1{
 }
 
 .link{
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
+  float: right;
   font-size: 15px;
 }
 
@@ -240,8 +237,36 @@ h1{
   border-left: none;
 }
 
-.edit-comment, .delete-comment{
-  background-color: #fff
+.edit-comment:hover, .delete-comment:hover, .edit-comment:active, .delete-comment:active{
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.edit-comment, .delete-comment {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 0;
+  text-decoration: none;
+  color: #83BAD6;
+  background-color: transparent;
+  border-color: transparent; 
+}
+
+.edit-comment:before, .delete-comment:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 4px;
+  top:100%;
+  left: 0;
+  border-radius: 3px;
+  background:#83BAD6;
+  transition: .2s;
+}
+
+.edit-comment:hover:before, .delete-comment:hover:before  {
+  top: -webkit-calc(100% - 3px);
+  top: calc(100% - 3px);
 }
 
 .no-link, .no-link:hover{
@@ -269,7 +294,7 @@ h1{
 	opacity: 0;
 	color: #000;
   border-radius: 6px;
-  border: solid 1px #4DADA1;
+  border: solid 1px #83BAD6;
 	background-color:rgba(255,255,255,0.6);
 }
 
@@ -290,3 +315,31 @@ h1{
 .box{
   width: auto;
 }
+
+.comment-new .alert-danger{
+  background-color: transparent;
+  color: #721c24;
+}
+.comment-new .alert-success{
+  background-color: transparent;
+}
+
+#edit-mode{
+  display: none;
+}
+.tol{
+  width: 100%;
+}
+@media screen and (max-width:990px) {
+  .comment-project{
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .project-comment-form{
+    margin-left: 0px;
+  }
+  .btn-outline-dark{
+    margin-left: 0px;
+  }
+}
+

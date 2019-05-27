@@ -53,4 +53,35 @@ $(function(){
     });
   });
 });
+$(function($) {
+  var num = 0;
+  var index
+  $(document).on("click", '.edit-comment', function () {
+    $(this).data("click", ++num);
+    var click = $(this).data("click");
+    if(click <= 1){
+    index = $('.edit-comment').index(this);
+    $('.n' + index).hide();
+    $('.e' + index).show();
+    }else{
+      var index2 = index
+      index = $('.edit-comment').index(this);
+      $('.e' + index2).hide();
+      $('.n' + index2).show();
+      $('.n' + index).hide();
+      $('.e' + index).show();
+    }
+  });
+});
 
+
+$(function(){
+  $('.js-count').keyup(function(){
+    var count = $(this).val().length;
+    if(count <= 0 || count > 50){
+      $('.submit-edit').prop('disabled',true)
+    }else{
+      $('.submit-edit').prop('disabled',false)
+    }
+  });
+});

@@ -12,11 +12,18 @@
 
   </head>
 
-  <body data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
+  <body>
     <%= render 'layouts/header' %>
     <div id="alert">
       <p class="alert-success text-center", id="notice"><%= notice %></p>
     </div>
+    <% if @comment && @comment.errors.any? %>
+    <div class="alert-danger text-center", id="error_explanation">
+      <% @comment.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
     <div class="container">
       <%= yield %>
     </div>

@@ -25,7 +25,6 @@ class TasksController < ApplicationController
   end
 
   def create
-    binding.pry
     @task = Task.new(task_params)
     if params[:project_id]
       @task.project_id = params[:project_id]

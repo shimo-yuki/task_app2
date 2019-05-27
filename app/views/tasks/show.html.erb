@@ -27,18 +27,30 @@
 
 <div class="col-lg-10 offset-md-1 mb-5 mt-5 border-secondary">
   <p><i class="fas fa-comment"></i>comment</p>
-  <% @comments.each do |comment| %>
+  <% @comments.each_with_index do |comment, i|  %>
     <div class="box clearfix col-lg-10 offset-md-1">
       <% if comment.user == current_user %>
         <div class="mycomment">
-          <div class="my-say">
-            <p><%= comment.content %></p>
-            <div class="link">
-              <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
-              <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-              commit: '削除する'}, class:"btn-light delete-comment" %>
+          <div class="n<%=i%>" id="show-mode">
+            <div class="my-say">
+              <p><%= comment.content %></p>
+              <div class="link">
+              <button type="button" id="edit-mode_<%=i%>" class="btn-light edit-comment">編集</button>
+                <%= link_to '削除', task_comment_path(task_id: @task.id, id: comment.id), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                  commit: '削除する'}, class:"btn-light delete-comment" %>
+              </div>
             </div>
           </div>
+          <div class="e<%=i%>" id="edit-mode">
+            <div class="my-say"> 
+              <%= form_for(comment, url: task_comment_path(task_id: @task.id,id: comment.id, :anchor => 'comment-new')) do |f| %>
+                <%= f.text_area :content, class:"col-lg-10 offset-md-1 js-count"%>
+                <%= hidden_field_tag :type, comment.type %>
+                <%= f.submit '編集する', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2 submit-edit"%>
+              <% end %>
+            </div>
+          </div>
+         
         </div>
       <% else %>
         <div class="comment-name">
@@ -52,10 +64,22 @@
       <% end %>
     </div>
   <% end %> 
-  <div class="comment-new">
-    <%= form_for @comment, url: comments_path(id: @task.id) do |f| %>
+  <div class="comment-new" id="comment-new">
+    <%= form_for @comment, url: task_comments_path(task_id: @task.id, :anchor => 'comment-new') do |f| %>
+      <% if flash[:task] %>
+        <div id="alert">
+          <p class="alert-success col-lg-10 offset-md-1", id="notice"><%= flash[:task] %></p>
+        </div>
+      <% end %>
+      <% if @comment.errors.any? %>
+        <div class="alert-danger col-lg-10 offset-md-1", id="error_explanation">
+          <% @comment.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+        </div>
+      <% end %> 
       <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
-      <%= hidden_field_tag :type,@comment.type %>
+      <%= hidden_field_tag :type, @comment.type %>
       <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
     <% end %>
   </div>

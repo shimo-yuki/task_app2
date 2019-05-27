@@ -80,7 +80,7 @@
         </div>
       </div>  
     </div>
-  </div>
+  </div> 
 </div>
 <div class="row">
   <div class="col-lg-6">
@@ -113,20 +113,33 @@
       </div>
     <% end %>
   </div>
-  <div class="col-lg-6 border-secondary">
+  
+  <div class="col-lg-6 comment-project border-secondary">
     <p><i class="fas fa-comment"></i>comment</p>
-    <% @comments.each do |comment| %>
+    <% @comments.each_with_index do |comment, i|  %>
       <div class="box clearfix col-lg-10 offset-md-1">
         <% if comment.user == current_user %>
           <div class="mycomment">
-            <div class="my-say">
-              <p><%= comment.content %></p>
-              <div class="link">
-                <%= link_to '編集', edit_comment_path(comment), class:"btn-light edit-comment" %>
-                <%= link_to '削除', comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-                commit: '削除する'}, class:"btn-light delete-comment" %>
+            <div class="n<%=i%>" id="show-mode">
+              <div class="my-say">
+                <p><%= comment.content %></p>
+                <div class="link">
+                <button type="button" id="edit-mode_<%=i%>" class="btn-light edit-comment">編集</button>
+                  <%= link_to '削除', project_comment_path(project_id: @project.id, id: comment.id), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                    commit: '削除する'}, class:"btn-light delete-comment" %>
+                </div>
               </div>
             </div>
+            <div class="e<%=i%>" id="edit-mode">
+              <div class="my-say"> 
+                <%= form_for(comment, url: project_comment_path(project_id: @project.id,id: comment.id, :anchor => 'comment-new')) do |f| %>
+                  <%= f.text_area :content, class:"col-lg-10 offset-md-1 js-count"%>
+                  <%= hidden_field_tag :type, comment.type %>
+                  <%= f.submit '編集する', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2 submit-edit"%>
+                <% end %>
+              </div>
+            </div>
+          
           </div>
         <% else %>
           <div class="comment-name">
@@ -139,11 +152,11 @@
           </div>
         <% end %>
       </div>
-    <% end %> 
-    <div class="comment-new">
-      <%= form_for @comment, url: comments_path(id: @project.id) do |f| %>
-        <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
-        <%= hidden_field_tag :type,@comment.type %>
+  <% end %>  
+  <div class="comment-new">
+      <%= form_for @comment, url: project_comments_path(project_id: @project.id) do |f| %>
+        <%= f.text_area :content, class:"col-lg-10 offset-md-1 project-comment-form" %>
+        <%= hidden_field_tag :type, @comment.type %>
         <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
       <% end %>
     </div>

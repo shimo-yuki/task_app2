@@ -180,7 +180,7 @@
   <% end %>  
   <div class="comment-new">
       <%= form_for @comment, url: project_comments_path(project_id: @project.id) do |f| %>
-        <%= f.text_area :content, class:"col-lg-10 offset-md-1 project-comment-form" %>
+        <%= f.text_area :content, class:"col-lg-10 offset-md-1 project-comment-form", placeholder:"50文字以内で入力してください" %>
         <%= hidden_field_tag :type, @comment.type %>
         <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
       <% end %>

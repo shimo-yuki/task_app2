@@ -80,7 +80,7 @@
           <% end %>
         </div>
       <% end %> 
-      <%= f.text_area :content, class:"col-lg-10 offset-md-1" %>
+      <%= f.text_area :content, class:"col-lg-10 offset-md-1", placeholder:"50文字以内で入力してください" %>
       <%= hidden_field_tag :type, @comment.type %>
       <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
     <% end %>

@@ -82,6 +82,7 @@ $(function(){
     var count = $(this).val().length;
     if(count <= 0 || count > 50){
       $('.submit-edit').prop('disabled',true)
+      $(".js-count").attr('placeholder','50文字以内で入力してください');
     }else{
       $('.submit-edit').prop('disabled',false)
     }

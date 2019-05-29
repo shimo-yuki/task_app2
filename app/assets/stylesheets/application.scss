@@ -31,7 +31,7 @@ h1{
   font-family: 'HanziPen SC','Hannotate TC','HanziPen TC','Hannotate SC', sans-serif;
 }
 
-.task-index, .btn-sticky, .status, .chatting, .comment-top, .comment-name {
+.task-index, .btn-sticky, .status, .comment-name {
   display: inline-block;
 }
 
@@ -78,43 +78,23 @@ h1{
   position: relative;
   margin: 1.5em 0 1.5em 15px;
   padding: 7px 10px;
-  min-width: 50%;
-  max-width: 75%;
   color: #555;
   font-size: 16px;
   background: #F6F6F6;
-  border: solid 3px #555;
+  border: solid 1px #555;
   box-sizing: border-box;
   border-radius: 10px;
 }
 
-.comment-top:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -22px;
-  margin-top: -12px;
-  border: 11px solid transparent;
-  border-right: 11px solid #F6F6F6;
-  z-index: 2;
-}
 
-.comment-top:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -28px;
-  margin-top: -14px;
-  border: 13px solid transparent;
-  border-right: 13px solid #555;
-  z-index: 1;
-}
 
 .comment-top p, .comment-name p{
   margin: 0;
   padding: 0;
 }
-
+.faceicon{
+  display: inherit;
+}
 .mycomment {
   float: right;
   position: relative;
@@ -125,31 +105,9 @@ h1{
    color: #555;
    font-size: 16px;
    background: #F6F6F6;
-   border: solid 3px #555;
+   border: solid 1px #555;
    box-sizing: border-box;
    border-radius: 10px;
-}
-
-.mycomment:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -24px;
-  margin-top: -12px;
-  border: 12px solid transparent;
-  border-left: 12px solid #F6F6F6;
-  z-index: 2;
-}
-
-.mycomment:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -30px;
-  margin-top: -14px;
-  border: 14px solid transparent;
-  border-left: 14px solid #555;
-  z-index: 1;
 }
 
 .mycomment p{
@@ -329,6 +287,9 @@ h1{
 }
 .tol{
   width: 100%;
+}
+.comment-user-name {
+  background: linear-gradient(transparent 70%, #83BAD6 70%);
 }
 @media screen and (max-width:990px) {
   .comment-project{

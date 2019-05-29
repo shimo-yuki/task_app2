@@ -4,21 +4,12 @@ Rails.application.routes.draw do
   # get 'tasks/set_tasks' => 'tasks#set_tasks'
   resources :tasks do
     resources :favorites, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy, :edit, :update], controller: 'task/comments'
   end
   resources :projects do
     resources :members, only: [:create, :destroy, :update, :index]
     resources :tasks, only: [:new]
-  end
-
-  scope module: :task do
-    resources :tasks do
-      resources :comments, only: [:create, :destroy, :edit, :update]
-    end
-  end
-  scope module: :project do
-    resources :projects do
-      resources :comments, only: [:create, :destroy, :edit, :update]
-    end
+    resources :comments, only: [:create, :destroy, :edit, :update], controller: 'project/comments'
   end
 
   get 'favorites' => "favorites#index"

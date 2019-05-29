@@ -50,17 +50,18 @@
               <% end %>
             </div>
           </div>
-         
         </div>
       <% else %>
         <div class="comment-name ">
-        <div class="edit-comment"></div>
-          <p><%= comment.user.name %></p>
-        </div>
-        <div class="chatting">
-          <div class="comment-top">
-            <p><%= comment.content %></p>
+          <div class="edit-comment"></div>
+          <div class="faceicon">
+            <p class="comment-user-name"><%= comment.user.name %></p>
+          </div>
+          <div class="chatting">
+            <div class="comment-top">
+              <p><%= comment.content %></p>
             </div>
+          </div>
         </div>
       <% end %>
     </div>

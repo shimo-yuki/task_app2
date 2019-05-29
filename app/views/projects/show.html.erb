@@ -1,10 +1,9 @@
 <div class="col-lg-12">
   <h2><%= @project.name%> Page</h2>
 </div>
-
-<div class="row">
-  <div class="col-lg-6 p-3"> 
-    <% if @project.user == current_user %>
+<% if @project.user == current_user %>
+  <div class="row project-top">
+    <div class="col-lg-6 p-3"> 
       <p>ユーザーの追加</p>
       <%= form_tag(project_path(@project),:method => 'get') do %>
         <div class="input-group mb-2">
@@ -16,102 +15,56 @@
           </span>
         </div>
       <% end %>
-    <% unless @users.nil? %>
-      <% unless @users.empty? %>
-        <div class="project-add-user">
-          <div class="cp_tooltip"><i class="far fa-question-circle" id="question"></i>
-            <span class="cp_tooltiptext">
-              ユーザー検索で追加したいユーザーを検索できるよ<br>
-              追加ボタンを押すとユーザーをプロジェクトに追加できるよ
-            </span>
-          </div>
-          <% @users.each_with_index do |user, i| %>
-            <% unless user == current_user %>
-              <%= link_to user.name, user_path(user), class:"btn-sticky" %>
-              <% if @project.teamed?(user) %>
-                追加済み
-              <% else %>
-                <%= link_to '追加', project_members_path(@project, user_id: user.id), method: :post, class: 'btn-light' %>
+      <% unless @users.nil? %>
+        <% unless @users.empty? %>
+          <div class="project-add-user">
+            <div class="cp_tooltip"><i class="far fa-question-circle" id="question"></i>
+              <span class="cp_tooltiptext">
+                ユーザー検索で追加したいユーザーを検索できるよ<br>
+                追加ボタンを押すとユーザーをプロジェクトに追加できるよ
+              </span>
+            </div>
+            <div class="hidden_box">
+              <label for="label1"><i class="far fa-question-circle"></i></label>
+              <input type="checkbox" id="label1"/>
+              <div class="hidden_show">
+                <span class="cp_tooltiptext">
+                  ユーザー検索で追加したいユーザーを検索できるよ<br>
+                  追加ボタンを押すとユーザーをプロジェクトに追加できるよ
+                </span>
+              </div>
+            </div>
+            <% @users.each_with_index do |user, i| %>
+              <% unless user == current_user %>
+                <%= link_to user.name, user_path(user), class:"btn-sticky" %>
+                <% if @project.teamed?(user) %>
+                  追加済み
+                <% else %>
+                  <%= link_to '追加', project_members_path(@project, user_id: user.id), method: :post, class: 'btn-light' %>
+                <% end %>
+              <% end %>
+              <% unless i == @users.length - 1 %>
+                ／
               <% end %>
             <% end %>
-            <% unless i == @users.length - 1 %>
-              ／
-            <% end %>
-          <% end %>
-        </div>
+          </div>
         <% else %>
           そのユーザーはいないです
         <% end %>
       <% end %>
-    <% end %>
-    <%= link_to "プロジェクトタスク作成", new_project_task_path(@project), class:"btn btn-info col-lg-12 mb-4" %>
-    <div class="form-group col-lg-12">      
+  </div>
+  <%= render 'show', project: @project %>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+      <%= link_to "プロジェクトタスク作成", new_project_task_path(@project), class:"btn btn-info col-lg-12 mb-4" %>
+    <div class="form-group btn-group col-lg-12 p-0">      
         <%= link_to 'すべて', project_path(id: @project.id, status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
         <%= link_to '未対応', project_path(id: @project.id, status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
         <%= link_to '対応中', project_path(id: @project.id, status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>
         <%= link_to '対応済', project_path(id: @project.id, status: 3), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '3'} " %> 
     </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="card bg-light mb-3">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-8">
-            <div>
-              テーマ：<%= @project.description %>
-            </div>
-            <div>
-              管理者：<%= @project.user.name %>
-            </div>
-            <div>
-              メンバー：
-              <% @project.users.each_with_index do |user, i| %>
-                <%= link_to user.name, user_path(user), class:"no-link" %>
-                <% unless i == @project.users.length - 1 %>
-                  ／
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <%= link_to '編集', edit_project_path(@project), class: "btn btn-info mt-2" %>
-            <%= link_to '削除', project_path(@project), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',commit: '削除する'}, title: '削除確認', class: "btn btn-danger mt-2" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> 
-</div>
-<div class="row">
-  <div class="col-lg-6">
-    <% @tasks.each do |task| %>
-      <div class="pb-3">
-        <% if task.expired? %>
-          <div class="card border-danger">
-            <div class="card-header bg-danger">
-        <% else %>
-          <div class="card border-success">
-            <div class="card-header bg-success">
-        <% end %>
-              <%= task.title %>
-            </div>
-        <div class="card-body">
-          <p><%= task.content %></p>
-          <p>期限：<%= task.deadline.strftime("%Y年%m月%d日") %></p>
-          <p>担当者：<%= link_to task.user.name, user_path(task.user), class:"no-link"%></p>
-          <p>ステータス：<%= task.display_status %></p>
-          <div>
-            <%= link_to "詳細", task_path(task), class: "btn btn-light" %>
-            <% if task.user == current_user %>
-              <%= link_to "編集", edit_task_path(task), class: "btn btn-info" %>
-              <%= link_to "削除", task_path(task), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
-                    commit: '削除する'}, title: '削除確認', class: "btn btn-danger" %>
-            <% end %>
-          </div>
-        </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render 'task', per_tasks: @tasks %>
   </div>
   
   <div class="col-lg-6 comment-project border-secondary">
@@ -165,3 +118,73 @@
     </div>
   </div>
 </div>
+<% else %>
+  <div class="row project-top">
+    <div class="col-lg-6 p-3"> 
+    <%= link_to "プロジェクトタスク作成", new_project_task_path(@project), class:"btn btn-info col-lg-12 mb-4" %>
+    <div class="form-group btn-group col-lg-12 p-0">      
+        <%= link_to 'すべて', project_path(id: @project.id, status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
+        <%= link_to '未対応', project_path(id: @project.id, status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
+        <%= link_to '対応中', project_path(id: @project.id, status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>
+        <%= link_to '対応済', project_path(id: @project.id, status: 3), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '3'} " %> 
+    </div>
+  </div>
+  <%= render 'show', project: @project %>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <%= render 'task', per_tasks: @tasks %>
+  </div>
+  
+  <div class="col-lg-6 comment-project border-secondary">
+    <p><i class="fas fa-comment"></i>comment</p>
+    <% @comments.each_with_index do |comment, i| %>
+      <div class="box clearfix col-lg-10 offset-md-1">
+        <% if comment.user == current_user %>
+          <div class="mycomment">
+            <div class="n<%=i%>" id="show-mode">
+              <div class="my-say">
+                <p><%= comment.content %></p>
+                <div class="link">
+                <button type="button" id="edit-mode_<%=i%>" class="btn-light edit-comment">編集</button>
+                  <%= link_to '削除', project_comment_path(project_id: @project.id, id: comment.id), method: :delete, data: { confirm: '本当に削除しますか?',cancel: 'やめる',
+                    commit: '削除する'}, class:"btn-light delete-comment" %>
+                </div>
+              </div>
+            </div>
+            <div class="e<%=i%>" id="edit-mode">
+              <div class="my-say"> 
+                <%= form_for(comment, url: project_comment_path(project_id: @project.id,id: comment.id, :anchor => 'comment-new')) do |f| %>
+                  <%= f.text_area :content, class:"col-lg-10 offset-md-1 js-count"%>
+                  <%= hidden_field_tag :type, comment.type %>
+                  <%= f.submit '編集する', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2 submit-edit"%>
+                <% end %>
+              </div>
+            </div>
+          
+          </div>
+        <% else %>
+          <div class="comment-name ">
+            <div class="edit-comment"></div>
+            <div class="faceicon">
+              <p class="comment-user-name"><%= comment.user.name %></p>
+            </div>
+            <div class="chatting">
+              <div class="comment-top">
+                <p><%= comment.content %></p>
+              </div>
+            </div>
+        </div>
+        <% end %>
+      </div>
+  <% end %>  
+  <div class="comment-new">
+      <%= form_for @comment, url: project_comments_path(project_id: @project.id) do |f| %>
+        <%= f.text_area :content, class:"col-lg-10 offset-md-1 project-comment-form" %>
+        <%= hidden_field_tag :type, @comment.type %>
+        <%= f.submit 'コメント', class: "col-lg-10 offset-md-1 btn btn-outline-dark mb-2"%>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

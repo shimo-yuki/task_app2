@@ -2,7 +2,7 @@
   <div class="col-lg-6">
     <h1>Storage Task</h1>
   </div>
-  <div class="form-group col-lg-6">
+  <div class="form-group btn-group col-lg-6 p-3">
     <%= link_to 'すべて', favorites_path(status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
     <%= link_to '未対応', favorites_path(status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
     <%= link_to '対応中', favorites_path(status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>

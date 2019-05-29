@@ -6,7 +6,7 @@
       <h1> <%= @user.name %> Task </h1>
     <% end %>
   </div>
-  <div class="form-group col-lg-6">
+  <div class="form-group btn-group col-lg-6 p-3">
       <%= link_to 'すべて', user_path(id: current_user.id, status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
       <%= link_to '未対応', user_path(id: current_user.id, status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
       <%= link_to '対応中', user_path(id: current_user.id, status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>

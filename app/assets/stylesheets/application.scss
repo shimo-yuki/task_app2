@@ -267,7 +267,7 @@ h1{
 }
 
 .tab-status{
-  width: 24%;
+  width: 25%;
 }
 
 .box{
@@ -291,6 +291,21 @@ h1{
 .comment-user-name {
   background: linear-gradient(transparent 70%, #83BAD6 70%);
 }
+.hidden_box{
+  display: none;
+}
+
+.project-comment-form, #comment_task_content{
+  border: 1px solid transparent;
+  border-color: #343a40;
+  border-radius: 0.25rem;
+}
+
+.project-tema{
+  padding: 0px;
+}
+
+
 @media screen and (max-width:990px) {
   .comment-project{
     margin-right: 15px;
@@ -301,6 +316,47 @@ h1{
   }
   .btn-outline-dark{
     margin-left: 0px;
+  }
+
+  .cp_tooltip{
+    display: none;
+  }
+
+  .hidden_box{
+    display: block;
+  }
+ 
+  .hidden_box input {
+      display: none;
+  }
+
+  .hidden_box .hidden_show {
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: 0.8s;
+  }
+  label{
+    margin: 0;
+  }
+ 
+
+  .hidden_box input:checked ~ .hidden_show {
+      padding: 10px 0;
+      height: auto;
+      opacity: 1;
+  }
+
+  .tab-status{
+    width: 25%;
+  }
+
+  .offset-md-1{
+    margin-left: 0px;
+  }
+  .project-tema{
+    padding: 15px;
   }
 }
 

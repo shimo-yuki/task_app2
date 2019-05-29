@@ -8,9 +8,20 @@
           プロジェクトタスクは右上にプロジェクト名がある
         </span>
     </div>
+    <div class="hidden_box">
+      <label for="label1"><i class="far fa-question-circle"></i></label>
+      <input type="checkbox" id="label1"/>
+      <div class="hidden_show">
+        <span class="cp_tooltiptext">
+          期限切れのタスクは赤、期限がまだのやつは緑で表示<br>
+          自分のタスクは<i class="fas fa-star"></i>マークがある<br>
+          プロジェクトタスクは右上にプロジェクト名がある
+        </span>
+      </div>
+    </div>
     <h1 class="task-index">Task List</h1>
   </div>
-  <div class="form-group col-lg-6 p-3">
+  <div class="form-group btn-group col-lg-6 p-3">
     <%= link_to 'すべて', tasks_path(status: 0), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '0' || params[:status].nil?} "%>
     <%= link_to '未対応', tasks_path(status: 1), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '1'} " %>
     <%= link_to '対応中', tasks_path(status: 2), class: "btn btn-outline-secondary tab-status #{'active' if params[:status] == '2'} " %>

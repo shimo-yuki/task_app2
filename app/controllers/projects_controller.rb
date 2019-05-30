@@ -30,6 +30,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    unless @project.user == current_user
+      redirect_to project_path(@project)
+    end
+  end
+
   def show
     if params[:status] == '0' || params[:status].nil?
       @tasks = Task.where(project_id: @project.id)

@@ -59,10 +59,8 @@ $(function($) {
   $(document).on("click", '.edit-comment', function () {
     $(this).data("click", ++num);
     var click = $(this).data("click");
-    console.log(click);
     if(click <= 1){
     index = $('.edit-comment').index(this);
-    console.log('index' + index)
     $('.n' + index).hide();
     $('.e' + index).show();
     }else{
